@@ -11,7 +11,7 @@
 using System;
 using System.Reflection;
 
-[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("aspnet-WoWJunkyard-4ACC15D3-4AD6-47EA-8C62-108F0024F94A")]
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("aspnet-WoWJunkyard-32561BCE-1A21-4BCA-B762-2DB5B8FBF211")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("WoWJunkyard")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]

@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using WoWJunkyard.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WoWJunkyard.Data.Models;
 
 namespace WoWJunkyard
 {
@@ -35,12 +36,12 @@ namespace WoWJunkyard
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<WoWDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddDefaultUI(UIFramework.Bootstrap4)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddIdentity<WoWUser, IdentityRole>()
+                .AddEntityFrameworkStores<WoWDbContext>()
+                .AddDefaultTokenProviders();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
