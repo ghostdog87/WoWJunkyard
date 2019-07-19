@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WoWJunkyard.Data.Models
 {
@@ -15,6 +16,7 @@ namespace WoWJunkyard.Data.Models
 
         public ICollection<Item> Items { get; set; }
 
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
 
         public ICollection<Dungeon> Dungeons { get; set; }
