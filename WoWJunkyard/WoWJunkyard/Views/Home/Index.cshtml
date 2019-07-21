@@ -1,8 +1,20 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@using WoWJunkyard.Data.Models
+@inject SignInManager<WoWUser> SignInManager
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@if (!this.SignInManager.IsSignedIn(User))
+{
+    <div class="text-center">
+        <h1 class="display-4 text-white">Welcome</h1>
+        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+        <a asp-area="" asp-controller="Characters" asp-action="GetCharacter" class="display-4 text-white">Characters</a>
+    </div>
+}
+@if (User.IsInRole("User"))
+{
+    <h1 class="text-center">Hello, @SignInManager.UserManager.GetUserName(User)!</h1>
+}
