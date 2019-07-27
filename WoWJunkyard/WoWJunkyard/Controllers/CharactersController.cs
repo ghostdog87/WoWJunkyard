@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SharprWowApi;
 using WoWJunkyard.Data;
 using WoWJunkyard.Data.Models;
+using WoWJunkyard.Services;
 
 namespace WoWJunkyard.Controllers
 {
@@ -21,17 +23,19 @@ namespace WoWJunkyard.Controllers
             _context = context;
         }
 
-        [HttpGet]
         public async Task<ActionResult> GetCharacter(string characterName, string realm)
         {
-            var apiKey = "USS5QIwmUuN0pouao4u871QlXFYTKX5g8C";
+            
+            WoWToken wowToken = new WoWToken();
+
+            var apiKey = await wowToken.GetToken();
 
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://EU.api.blizzard.com/");
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                //var response = client.GetAsync("wow/character/Kazzak/chechok?locale=en_US&access_token=USS5QIwmUuN0pouao4u871QlXFYTKX5g8C").Result;
-                var response = await client.GetAsync("wow/character/Kazzak/chechok?fields=items&locale=en_US&access_token=" + apiKey);
+
+                var response = await client.GetAsync("wow/character/Kazzak/chechok?fields=items&locale=en_US&access_token=" + apiKey.AccessTokenKey);
                 string res = "";
                 using (HttpContent content = response.Content)
                 {
@@ -40,6 +44,12 @@ namespace WoWJunkyard.Controllers
                 }
                 return Content(res);
             }
+
+            //var client = new WowClient(Region.EU, Locale.en_GB, apiKey);
+
+            //var characterOne = await client.GetCharacterAsync("Durvoto", CharacterOptions.None, "Kazzak");
+
+            //return Content(characterOne.ToString());
         }
     }
 }

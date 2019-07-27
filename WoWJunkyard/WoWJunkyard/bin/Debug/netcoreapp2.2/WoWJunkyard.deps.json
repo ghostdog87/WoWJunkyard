@@ -28,7 +28,8 @@
           "Microsoft.AspNetCore.Razor.Design": "2.2.0",
           "Microsoft.NETCore.App": "2.2.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.2.3",
-          "Sendgrid": "9.11.0"
+          "Sendgrid": "9.11.0",
+          "SharprWowApi": "1.2.0"
         },
         "runtime": {
           "WoWJunkyard.dll": {}
@@ -218,6 +219,20 @@
         },
         "compile": {
           "lib/netstandard2.0/SendGrid.dll": {}
+        }
+      },
+      "SharprWowApi/1.2.0": {
+        "dependencies": {
+          "Newtonsoft.Json": "11.0.2"
+        },
+        "runtime": {
+          "lib/net46/SharprWowApi.dll": {
+            "assemblyVersion": "1.2.0.0",
+            "fileVersion": "1.2.0.0"
+          }
+        },
+        "compile": {
+          "lib/net46/SharprWowApi.dll": {}
         }
       },
       "System.Composition/1.0.31": {
@@ -3642,6 +3657,13 @@
       "sha512": "sha512-I3VdLmsDbqazS5k8OsMAuKvnZz3YruNQxOACfVMDdrM5jjlQE/jOoaNJXcZEG+49TbanCVvOldE56pbKxdiVGA==",
       "path": "sendgrid/9.11.0",
       "hashPath": "sendgrid.9.11.0.nupkg.sha512"
+    },
+    "SharprWowApi/1.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-zmjXNZ+kfEpSi643aQuuowknzAPTiDU7PLwgQ/v9jDQL57Kg2vxj0zChuKwC9TNFKnSyWyAbUyuQ9lfuHAEaxg==",
+      "path": "sharprwowapi/1.2.0",
+      "hashPath": "sharprwowapi.1.2.0.nupkg.sha512"
     },
     "System.Composition/1.0.31": {
       "type": "package",

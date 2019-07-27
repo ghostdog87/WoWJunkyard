@@ -3133,6 +3133,18 @@
           "lib/netstandard2.0/SendGrid.dll": {}
         }
       },
+      "SharprWowApi/1.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "11.0.2"
+        },
+        "compile": {
+          "lib/net46/SharprWowApi.dll": {}
+        },
+        "runtime": {
+          "lib/net46/SharprWowApi.dll": {}
+        }
+      },
       "System.AppContext/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -8425,6 +8437,18 @@
         "sendgrid.nuspec"
       ]
     },
+    "SharprWowApi/1.2.0": {
+      "sha512": "zmjXNZ+kfEpSi643aQuuowknzAPTiDU7PLwgQ/v9jDQL57Kg2vxj0zChuKwC9TNFKnSyWyAbUyuQ9lfuHAEaxg==",
+      "type": "package",
+      "path": "sharprwowapi/1.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net46/SharprWowApi.dll",
+        "sharprwowapi.1.2.0.nupkg.sha512",
+        "sharprwowapi.nuspec"
+      ]
+    },
     "System.AppContext/4.3.0": {
       "sha512": "fKC+rmaLfeIzUhagxY17Q9siv/sPrjjKcfNg1Ic8IlQkZLipo8ljcaZQu4VtI4Jqbzjc2VTjzGLF6WmsRXAEgA==",
       "type": "package",
@@ -12970,7 +12994,8 @@
       "Microsoft.AspNetCore.Razor.Design >= 2.2.0",
       "Microsoft.NETCore.App >= 2.2.0",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.2.3",
-      "Sendgrid >= 9.11.0"
+      "Sendgrid >= 9.11.0",
+      "SharprWowApi >= 1.2.0"
     ]
   },
   "packageFolders": {
@@ -13038,6 +13063,10 @@
           "Sendgrid": {
             "target": "Package",
             "version": "[9.11.0, )"
+          },
+          "SharprWowApi": {
+            "target": "Package",
+            "version": "[1.2.0, )"
           }
         },
         "imports": [
@@ -13052,5 +13081,17 @@
         "warn": true
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'SharprWowApi 1.2.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v2.2'. This package may not be fully compatible with your project.",
+      "libraryId": "SharprWowApi",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v2.2"
+      ]
+    }
+  ]
 }

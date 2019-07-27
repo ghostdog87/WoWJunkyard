@@ -65,6 +65,10 @@
             "Sendgrid": {
               "target": "Package",
               "version": "[9.11.0, )"
+            },
+            "SharprWowApi": {
+              "target": "Package",
+              "version": "[1.2.0, )"
             }
           },
           "imports": [

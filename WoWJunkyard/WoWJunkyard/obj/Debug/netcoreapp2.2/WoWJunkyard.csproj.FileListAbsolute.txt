@@ -39,3 +39,4 @@ D:\Softuni\C# ASP.NET Core 2019\Course Project\WoWJunkyard\WoWJunkyard\obj\Debug
 D:\Softuni\C# ASP.NET Core 2019\Course Project\WoWJunkyard\WoWJunkyard\obj\Debug\netcoreapp2.2\WoWJunkyard.dll
 D:\Softuni\C# ASP.NET Core 2019\Course Project\WoWJunkyard\WoWJunkyard\obj\Debug\netcoreapp2.2\WoWJunkyard.pdb
 D:\Softuni\C# ASP.NET Core 2019\Course Project\WoWJunkyard\WoWJunkyard\obj\Debug\netcoreapp2.2\WoWJunkyard.csproj.CopyComplete
+D:\Softuni\C# ASP.NET Core 2019\Course Project\WoWJunkyard\WoWJunkyard\obj\Debug\netcoreapp2.2\WoWJunkyard.csprojAssemblyReference.cache
