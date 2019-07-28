@@ -7,18 +7,31 @@ namespace WoWJunkyard.Data.Models
     {
         public Character()
         {
-            this.Items = new List<Item>();
             this.Dungeons = new List<Dungeon>();
         }
+
         public int Id { get; set; }
 
-        public int Level { get; set; }
+        public long LastModified { get; set; }
 
-        public ICollection<Item> Items { get; set; }
+        public string Name { get; set; }
 
-        [Column(TypeName = "decimal(18,2)")]
-        public decimal Price { get; set; }
+        public string Realm { get; set; }
 
-        public ICollection<Dungeon> Dungeons { get; set; }
+        public long Class { get; set; }
+
+        public long Race { get; set; }
+
+        public long Level { get; set; }
+
+        public long AchievementPoints { get; set; }
+
+        public long Faction { get; set; }
+
+        public List<Dungeon> Dungeons { get; set; }
+
+        public int ItemsId { get; set; }
+
+        public Items Items { get; set; }
     }
 }

@@ -15,12 +15,35 @@ namespace WoWJunkyard.Data
         {
         }
 
-        public DbSet<WoWAccount> WoWAccounts { get; set; }
-
+        public DbSet<AzeriteEmpoweredItem> AzeriteEmpoweredItems { get; set; }
+        public DbSet<AzeriteItem> AzeriteItems { get; set; }
+        public DbSet<AzeritePower> AzeritePowers { get; set; }
         public DbSet<Character> Characters { get; set; }
-
-        public DbSet<Item> Items { get; set; }
-
+        public DbSet<BonusList> BonusLists { get; set; }
+        public DbSet<Damage> Damages { get; set; }
         public DbSet<Dungeon> Dungeons { get; set; }
+        public DbSet<ItemInfo> ItemInfos { get; set; }
+        public DbSet<Items> Items { get; set; }
+        public DbSet<Stat> Stats { get; set; }
+        public DbSet<WeaponInfo> WeaponInfos { get; set; }
+        public DbSet<WoWAccount> WoWAccounts { get; set; }
+        public DbSet<WoWUser> WoWUsers { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Items>()
+                .HasOne(x => x.Chest)
+                .WithOne()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<IdentityUserLogin<string>>()
+                .HasKey(x => x.UserId);
+
+            builder.Entity<IdentityUserRole<string>>()
+                .HasKey(x => x.RoleId);
+
+            builder.Entity<IdentityUserToken<string>>()
+                .HasKey(x => x.UserId);
+        }
     }
 }

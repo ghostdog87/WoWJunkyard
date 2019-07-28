@@ -3,7 +3,7 @@ using Newtonsoft.Json.Serialization;
 
 namespace WoWJunkyard.Services
 {
-    public class AccessToken 
+    public class AccessToken
     {
         [JsonProperty("access_token")]
         public string AccessTokenKey { get; set; }

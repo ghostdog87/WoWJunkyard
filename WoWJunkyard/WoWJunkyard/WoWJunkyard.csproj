@@ -6,13 +6,24 @@
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20190728183503_AddedCharacterData.cs" />
+    <Compile Remove="Data\Migrations\20190728183503_AddedCharacterData.Designer.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
     <PackageReference Include="Sendgrid" Version="9.11.0" />
-    <PackageReference Include="SharprWowApi" Version="1.2.0" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Models\Profiles\" />
   </ItemGroup>
 
 </Project>

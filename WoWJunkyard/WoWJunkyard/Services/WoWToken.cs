@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace WoWJunkyard.Services
 {
-    public class WoWToken
+    public class WoWToken : IWoWToken
     {
 
         private const string ClientId = "31862b71351440cea1b783c37e872a6a";
@@ -21,7 +21,7 @@ namespace WoWJunkyard.Services
         {
         }
 
-        public async Task<AccessToken> GetToken()
+        public async Task<AccessToken> GetTokenAsync()
         {
 
             using (var client = new HttpClient())

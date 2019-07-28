@@ -9,7 +9,7 @@
 @if (!this.SignInManager.IsSignedIn(User))
 {
     <div class="text-center">
-        <a asp-area="" asp-controller="Characters" asp-action="GetCharacter" class="display-4 text-white">Characters</a>
+        <span class="display-4 text-white">Welcome to Junkyard</span>
     </div>
 }
 @if (User.IsInRole("User"))

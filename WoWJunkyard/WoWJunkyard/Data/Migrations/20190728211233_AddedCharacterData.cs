@@ -2,7 +2,7 @@
 
 namespace WoWJunkyard.Data.Migrations
 {
-    public partial class test2 : Migration
+    public partial class AddedCharacterData : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

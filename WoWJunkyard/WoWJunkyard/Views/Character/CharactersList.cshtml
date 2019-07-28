@@ -1,0 +1,89 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model IEnumerable<WoWJunkyard.Data.Models.Character>
+
+@{
+    ViewData["Title"] = "Characters";
+    var page = 0;
+}
+
+<h1>Characters</h1>
+
+<p>
+    @*<a asp-action="Create">Create New</a>*@
+    @*@Html.ActionLink("Edit", "Edit", new {/* id=item.PrimaryKey */})*@
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+
+            </th>
+            @*<th>
+                    <span style="visibility: hidden">icon</span>
+                </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Class)
+            </th>
+            <th>
+                Character Name
+            </th>
+            <th>
+                test
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Realm)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Race)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Level)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AchievementPoints)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Faction)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            page++;
+        <tr>
+            <td>
+                @Html.Raw(page)
+            </td>
+            @*<td>
+            <img src=@Url.Content("https://render-eu.worldofwarcraft.com/character/kazzak/180/173030068-avatar.jpg") alt=""/>
+        </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Class)
+            </td>
+            <td>
+                <a asp-area="" asp-controller="Character" asp-route-id="@item.Id" asp-action="Character">@item.Name</a>
+            </td>
+            <td>
+                <a href="https://www.wowhead.com/item=@item.Items.Chest.Id&bonus=@string.Join(':',item.Items.Chest.BonusLists)" 
+                   data-wowhead="@item.Items.Chest.Id">@item.Items.Chest.Name</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Realm)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Race)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Level)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AchievementPoints)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Faction)
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

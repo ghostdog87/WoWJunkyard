@@ -29,63 +29,63 @@
     <![endif]-->
 </head>
 <body class="mainBackgroundImage">
-<!-- Page Preloder -->
-<div id="preloder">
-    <div class="loader"></div>
-</div>
-<!-- Header section -->
-<header class="header-section">
-    <div class="container">
-        <!-- logo -->
-        <a class="site-logo" asp-area="" asp-controller="Home" asp-action="Index">
-            <img src="~/img/LogoMakr_26SJod_v2.png" alt="">
-        </a>
-        <partial name="_LoginPartial" />
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+    <!-- Header section -->
+    <header class="header-section">
+        <div class="container">
+            <!-- logo -->
+            <a class="site-logo" asp-area="" asp-controller="Home" asp-action="Index">
+                <img src="~/img/LogoMakr_26SJod_v2.png" alt="">
+            </a>
+            <partial name="_LoginPartial" />
             <!-- responsive -->
-        <div class="nav-switch">
-            <i class="fa fa-bars"></i>
+            <div class="nav-switch">
+                <i class="fa fa-bars"></i>
+            </div>
+            <!-- site menu -->
+            <nav class="main-menu">
+                <ul>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-area="" asp-controller="Character" asp-action="CharactersList">Characters</a></li>
+                    <li><a href="community.html">Forums</a></li>
+                </ul>
+            </nav>
         </div>
-        <!-- site menu -->
-        <nav class="main-menu">
-            <ul>
+    </header>
+    <!-- Header section end -->
+    <div class="container">
+        <partial name="_CookieConsentPartial" />
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+
+    </div>
+
+    <!-- Footer section -->
+    <footer class="footer-section">
+        <div class="container">
+            <ul class="footer-menu">
                 <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                 <li><a href="review.html">Games</a></li>
+                <li><a href="categories.html">Blog</a></li>
                 <li><a href="community.html">Forums</a></li>
+                <li><a href="contact.html">Contact</a></li>
             </ul>
-        </nav>
-    </div>
-</header>
-<!-- Header section end -->
-<div class="container">
-    <partial name="_CookieConsentPartial" />
-    <main role="main" class="pb-3">
-            @RenderBody()
-    </main>
+        </div>
+    </footer>
+    <!-- Footer section end -->
+    <!--====== Javascripts & Jquery ======-->
+    <script src="~/js/jquery-3.2.1.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/owl.carousel.min.js"></script>
+    <script src="~/js/jquery.marquee.min.js"></script>
+    <script src="~/js/main.js"></script>
+    <script>var whTooltips = { colorLinks: true, iconizeLinks: true,iconSize: 'large', renameLinks: true, dropchance: true };</script>
+    <script src="https://wow.zamimg.com/widgets/power.js"></script>
 
-</div>
-
-<!-- Footer section -->
-<footer class="footer-section">
-    <div class="container">
-        <ul class="footer-menu">
-            <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-            <li><a href="review.html">Games</a></li>
-            <li><a href="categories.html">Blog</a></li>
-            <li><a href="community.html">Forums</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-    </div>
-</footer>
-<!-- Footer section end -->
-
-
-<!--====== Javascripts & Jquery ======-->
-<script src="~/js/jquery-3.2.1.min.js"></script>
-<script src="~/js/bootstrap.min.js"></script>
-<script src="~/js/owl.carousel.min.js"></script>
-<script src="~/js/jquery.marquee.min.js"></script>
-<script src="~/js/main.js"></script>
-
-@RenderSection("Scripts", required: false)
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
