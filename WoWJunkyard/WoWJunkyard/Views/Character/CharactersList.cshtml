@@ -65,8 +65,8 @@
                 <a asp-area="" asp-controller="Character" asp-route-id="@item.Id" asp-action="Character">@item.Name</a>
             </td>
             <td>
-                <a href="https://www.wowhead.com/item=@item.Items.Chest.Id&bonus=@string.Join(':',item.Items.Chest.BonusLists)" 
-                   data-wowhead="@item.Items.Chest.Id">@item.Items.Chest.Name</a>
+                <a href="https://www.wowhead.com/item=@item.Items.ItemInfos[0].Id&bonus=@string.Join(':',item.Items.ItemInfos[0].BonusLists)" 
+                   data-wowhead="@item.Items.ItemInfos[0].Id">@item.Items.ItemInfos[0].Name</a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Realm)

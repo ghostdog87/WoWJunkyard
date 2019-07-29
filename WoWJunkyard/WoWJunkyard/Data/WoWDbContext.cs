@@ -19,7 +19,6 @@ namespace WoWJunkyard.Data
         public DbSet<AzeriteItem> AzeriteItems { get; set; }
         public DbSet<AzeritePower> AzeritePowers { get; set; }
         public DbSet<Character> Characters { get; set; }
-        public DbSet<BonusList> BonusLists { get; set; }
         public DbSet<Damage> Damages { get; set; }
         public DbSet<Dungeon> Dungeons { get; set; }
         public DbSet<ItemInfo> ItemInfos { get; set; }
@@ -32,9 +31,10 @@ namespace WoWJunkyard.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Items>()
-                .HasOne(x => x.Chest)
-                .WithOne()
+                .HasMany(x => x.ItemInfos)
+                .WithOne(x => x.Items)
                 .OnDelete(DeleteBehavior.Restrict);
+
 
             builder.Entity<IdentityUserLogin<string>>()
                 .HasKey(x => x.UserId);
@@ -44,6 +44,11 @@ namespace WoWJunkyard.Data
 
             builder.Entity<IdentityUserToken<string>>()
                 .HasKey(x => x.UserId);
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.EnableSensitiveDataLogging();
         }
     }
 }

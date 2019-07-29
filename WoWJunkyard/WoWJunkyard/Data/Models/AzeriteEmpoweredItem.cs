@@ -9,6 +9,7 @@ namespace WoWJunkyard.Data.Models
             this.AzeritePowers = new List<AzeritePower>();
         }
 
+
         public long Id { get; set; }
 
         public List<AzeritePower> AzeritePowers { get; set; }

@@ -9,6 +9,8 @@
   <ItemGroup>
     <Compile Remove="Data\Migrations\20190728183503_AddedCharacterData.cs" />
     <Compile Remove="Data\Migrations\20190728183503_AddedCharacterData.Designer.cs" />
+    <Compile Remove="Data\Migrations\20190729193748_AddCharacterModels.cs" />
+    <Compile Remove="Data\Migrations\20190729193748_AddCharacterModels.Designer.cs" />
   </ItemGroup>
 
 

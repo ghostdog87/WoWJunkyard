@@ -56,12 +56,19 @@ namespace WoWJunkyard.Views.Models
     public partial class ItemsInputModel
     {
 
+        public ItemsInputModel()
+        {
+            ItemInfo = new List<ItemInfoInputModel>();
+        }
+
         [JsonProperty("averageItemLevel")]
         public long AverageItemLevel { get; set; }
 
         [JsonProperty("averageItemLevelEquipped")]
         public long AverageItemLevelEquipped { get; set; }
 
+        [JsonIgnore]
+        public List<ItemInfoInputModel> ItemInfo { get; set; }
 
         [JsonProperty("head")]
         public ItemInfoInputModel Head { get; set; }
@@ -117,6 +124,9 @@ namespace WoWJunkyard.Views.Models
     
     public partial class ItemInfoInputModel
     {
+        [JsonIgnore]
+        public string SlotName { get; set; }
+
         [JsonProperty("id")]
         public long Id { get; set; }
 
@@ -144,8 +154,8 @@ namespace WoWJunkyard.Views.Models
         [JsonProperty("context")]
         public string Context { get; set; }
 
-        //[JsonProperty("bonusLists")]
-        public List<BonusListInputModel> Bonus { get; set; }
+        [JsonProperty("bonusLists")]
+        public List<long> Bonus { get; set; }
 
         [JsonProperty("artifactId")]
         public long ArtifactId { get; set; }
@@ -169,11 +179,6 @@ namespace WoWJunkyard.Views.Models
         public AzeriteEmpoweredItemInputModel AzeriteEmpoweredItem { get; set; }
     }
 
-    public class BonusListInputModel
-    {
-        //[JsonProperty("bonusLists")]
-        public long BonusLists { get; set; }
-    }
 
     public partial class AzeriteEmpoweredItemInputModel
     {

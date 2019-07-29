@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 
@@ -11,7 +12,13 @@ namespace WoWJunkyard.Data.Models
             this.Stats = new List<Stat>();
         }
 
+        [Key]
+        public long ItemInfoId { get; set; }
+
         public long Id { get; set; }
+
+        public int ItemsId { get; set; }
+        public Items Items { get; set; }
 
         public string Name { get; set; }
 
@@ -27,7 +34,7 @@ namespace WoWJunkyard.Data.Models
 
         public string Context { get; set; }
 
-        public List<BonusList> BonusLists { get; set; }
+        public string BonusLists { get; set; }
 
         public long ArtifactId { get; set; }
 
@@ -42,11 +49,13 @@ namespace WoWJunkyard.Data.Models
         public List<object> Relics { get; set; }
 
         public long AzeriteItemId { get; set; }
+
         public AzeriteItem AzeriteItem { get; set; }
 
         public long AzeriteEmpoweredItemId { get; set; }
 
         public AzeriteEmpoweredItem AzeriteEmpoweredItem { get; set; }
+
     }
 
 }

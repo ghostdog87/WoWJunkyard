@@ -1,7 +1,13 @@
-﻿namespace WoWJunkyard.Data.Models
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.ComponentModel.DataAnnotations;
+
+namespace WoWJunkyard.Data.Models
 {
     public class AzeriteItem
     {
+        [Key]
+        public int AzeriteItemId { get; set; }
+
         public long Id { get; set; }
 
         public long AzeriteLevel { get; set; }
