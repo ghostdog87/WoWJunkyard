@@ -15,6 +15,18 @@ body {
     font-family: 'Roboto', sans-serif;
     -webkit-font-smoothing: antialiased;
     font-smoothing: antialiased;
+    background-color: transparent !important;
+}
+.fa {
+    font-family: FontAwesome !important;
+    font-size: 25px !important;
+    font-stretch: 100% !important;
+    font-style: normal !important;
+    font-variant-caps: normal !important;
+    font-variant-east-asian: normal !important;
+    font-variant-ligatures: !important;
+    font-variant-numeric: normal !important;
+    font-weight: 400 !important;
 }
 
 h1,
@@ -62,7 +74,10 @@ img {
 	max-width: 100%;
 }
 .mainBackgroundImage {
-    background: url('../img/zandalari-craft.jpg') no-repeat 0 0;
+    background-image: url('../img/zandalari-craft.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
 }
 
 input:focus,
@@ -831,7 +846,7 @@ ol {
     padding: 18px 0 16px;
     overflow: hidden;
     background: #252525;
-    position: absolute;
+    position: fixed;
     width: 100%;
     bottom: 0;
 }

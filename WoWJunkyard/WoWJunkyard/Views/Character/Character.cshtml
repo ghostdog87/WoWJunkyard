@@ -4,63 +4,26 @@
     ViewData["Title"] = "Character";
 }
 
+<script>var whTooltips = { colorLinks: true, iconizeLinks: true,iconSize: 'large', renameLinks: true, dropchance: true };</script>
+<script src="https://wow.zamimg.com/widgets/power.js"></script>
+
 <h1>Character</h1>
 
 <div>
     <h4>CharacterInputModel</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LastModified)
+    @foreach (var item in Model.Items.ItemInfos)
+    {
+        <dt class="col-sm-2">
+            <a href="https://www.wowhead.com/item=@item.Id&bonus=@string.Join(':', item.BonusLists)"
+               data-wowhead="@item.Id">@item.Name</a>
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LastModified)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Realm)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Realm)
-        </dd>
-
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Class)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Class)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Race)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Race)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Level)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Level)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AchievementPoints)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AchievementPoints)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Faction)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Faction)
-        </dd>
+    }
     </dl>
 </div>
 <div>
-    <a asp-action="CharactersList" asp-controller="Character">Back to List</a>
+    <a asp-action="CharactersList" asp-controller="Character" class="btn btn-outline-info text-white">Back to List</a>
 </div>
+
+

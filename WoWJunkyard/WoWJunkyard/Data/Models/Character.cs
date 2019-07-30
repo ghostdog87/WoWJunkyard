@@ -26,6 +26,8 @@ namespace WoWJunkyard.Data.Models
 
         public long AchievementPoints { get; set; }
 
+        public string Thumbnail { get; set; }
+
         public long Faction { get; set; }
 
         public List<Dungeon> Dungeons { get; set; }

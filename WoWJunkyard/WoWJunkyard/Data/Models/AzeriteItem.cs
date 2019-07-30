@@ -6,7 +6,7 @@ namespace WoWJunkyard.Data.Models
     public class AzeriteItem
     {
         [Key]
-        public int AzeriteItemId { get; set; }
+        public long AzeriteItemId { get; set; }
 
         public long Id { get; set; }
 

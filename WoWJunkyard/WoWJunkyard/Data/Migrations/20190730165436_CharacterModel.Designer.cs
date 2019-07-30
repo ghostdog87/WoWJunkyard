@@ -10,8 +10,8 @@ using WoWJunkyard.Data;
 namespace WoWJunkyard.Data.Migrations
 {
     [DbContext(typeof(WoWDbContext))]
-    [Migration("20190729212527_AddCharacterModels")]
-    partial class AddCharacterModels
+    [Migration("20190730165436_CharacterModel")]
+    partial class CharacterModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -115,6 +115,57 @@ namespace WoWJunkyard.Data.Migrations
                     b.ToTable("UserTokens");
                 });
 
+            modelBuilder.Entity("WoWJunkyard.Data.Models.AzeriteEmpoweredItem", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AzeriteEmpoweredItems");
+                });
+
+            modelBuilder.Entity("WoWJunkyard.Data.Models.AzeriteItem", b =>
+                {
+                    b.Property<long>("AzeriteItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("AzeriteExperience");
+
+                    b.Property<long>("AzeriteExperienceRemaining");
+
+                    b.Property<long>("AzeriteLevel");
+
+                    b.Property<long>("Id");
+
+                    b.HasKey("AzeriteItemId");
+
+                    b.ToTable("AzeriteItems");
+                });
+
+            modelBuilder.Entity("WoWJunkyard.Data.Models.AzeritePower", b =>
+                {
+                    b.Property<int>("AzeritePowerId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("BonusListId");
+
+                    b.Property<long>("Id");
+
+                    b.Property<long>("SpellId");
+
+                    b.Property<long>("Tier");
+
+                    b.HasKey("AzeritePowerId");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("AzeritePowers");
+                });
+
             modelBuilder.Entity("WoWJunkyard.Data.Models.Character", b =>
                 {
                     b.Property<int>("Id")
@@ -200,6 +251,10 @@ namespace WoWJunkyard.Data.Migrations
 
                     b.Property<long>("ArtifactId");
 
+                    b.Property<long>("AzeriteEmpoweredItemId");
+
+                    b.Property<long>("AzeriteItemId");
+
                     b.Property<string>("BonusLists");
 
                     b.Property<string>("Context");
@@ -219,6 +274,10 @@ namespace WoWJunkyard.Data.Migrations
                     b.Property<long>("Quality");
 
                     b.HasKey("ItemInfoId");
+
+                    b.HasIndex("AzeriteEmpoweredItemId");
+
+                    b.HasIndex("AzeriteItemId");
 
                     b.HasIndex("ItemsId");
 
@@ -338,6 +397,14 @@ namespace WoWJunkyard.Data.Migrations
                     b.ToTable("WoWUser");
                 });
 
+            modelBuilder.Entity("WoWJunkyard.Data.Models.AzeritePower", b =>
+                {
+                    b.HasOne("WoWJunkyard.Data.Models.AzeriteEmpoweredItem")
+                        .WithMany("AzeritePowers")
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("WoWJunkyard.Data.Models.Character", b =>
                 {
                     b.HasOne("WoWJunkyard.Data.Models.Items", "Items")
@@ -359,6 +426,16 @@ namespace WoWJunkyard.Data.Migrations
 
             modelBuilder.Entity("WoWJunkyard.Data.Models.ItemInfo", b =>
                 {
+                    b.HasOne("WoWJunkyard.Data.Models.AzeriteEmpoweredItem", "AzeriteEmpoweredItem")
+                        .WithMany()
+                        .HasForeignKey("AzeriteEmpoweredItemId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("WoWJunkyard.Data.Models.AzeriteItem", "AzeriteItem")
+                        .WithMany()
+                        .HasForeignKey("AzeriteItemId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("WoWJunkyard.Data.Models.Items", "Items")
                         .WithMany("ItemInfos")
                         .HasForeignKey("ItemsId")

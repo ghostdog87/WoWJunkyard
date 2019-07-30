@@ -10,8 +10,8 @@ using WoWJunkyard.Data;
 namespace WoWJunkyard.Data.Migrations
 {
     [DbContext(typeof(WoWDbContext))]
-    [Migration("20190729213852_AddCharacterModels2")]
-    partial class AddCharacterModels2
+    [Migration("20190730182711_AddThumbnail")]
+    partial class AddThumbnail
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -128,7 +128,7 @@ namespace WoWJunkyard.Data.Migrations
 
             modelBuilder.Entity("WoWJunkyard.Data.Models.AzeriteItem", b =>
                 {
-                    b.Property<int>("AzeriteItemId")
+                    b.Property<long>("AzeriteItemId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -189,6 +189,8 @@ namespace WoWJunkyard.Data.Migrations
                     b.Property<long>("Race");
 
                     b.Property<string>("Realm");
+
+                    b.Property<string>("Thumbnail");
 
                     b.Property<string>("WoWAccountId");
 
@@ -251,6 +253,10 @@ namespace WoWJunkyard.Data.Migrations
 
                     b.Property<long>("ArtifactId");
 
+                    b.Property<long>("AzeriteEmpoweredItemId");
+
+                    b.Property<long>("AzeriteItemId");
+
                     b.Property<string>("BonusLists");
 
                     b.Property<string>("Context");
@@ -270,6 +276,10 @@ namespace WoWJunkyard.Data.Migrations
                     b.Property<long>("Quality");
 
                     b.HasKey("ItemInfoId");
+
+                    b.HasIndex("AzeriteEmpoweredItemId");
+
+                    b.HasIndex("AzeriteItemId");
 
                     b.HasIndex("ItemsId");
 
@@ -418,6 +428,16 @@ namespace WoWJunkyard.Data.Migrations
 
             modelBuilder.Entity("WoWJunkyard.Data.Models.ItemInfo", b =>
                 {
+                    b.HasOne("WoWJunkyard.Data.Models.AzeriteEmpoweredItem", "AzeriteEmpoweredItem")
+                        .WithMany()
+                        .HasForeignKey("AzeriteEmpoweredItemId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("WoWJunkyard.Data.Models.AzeriteItem", "AzeriteItem")
+                        .WithMany()
+                        .HasForeignKey("AzeriteItemId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("WoWJunkyard.Data.Models.Items", "Items")
                         .WithMany("ItemInfos")
                         .HasForeignKey("ItemsId")

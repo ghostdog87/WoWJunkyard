@@ -77,8 +77,6 @@ namespace WoWJunkyard.Controllers
 
                 var characters = _context.Characters
                     .Where(x => x.Name == "chechok")
-                    .Include(x => x.Items)
-                    .Include(x => x.Items.ItemInfos)
                     .ToList();
 
                 return View(characters);
@@ -89,7 +87,13 @@ namespace WoWJunkyard.Controllers
         [HttpGet("/Character/{id}")]
         public async Task<ActionResult> Character(int id)
         {
-            var character = await _context.Characters.FindAsync(id);
+            var character = await _context.Characters
+                .Where(x => x.Id == id)
+                .Include(x => x.Items)
+                .Include(x => x.Items.ItemInfos)
+                .FirstAsync();
+
+            ;
             return View(character);
         }
     }

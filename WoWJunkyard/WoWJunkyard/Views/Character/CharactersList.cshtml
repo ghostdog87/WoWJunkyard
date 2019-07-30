@@ -12,23 +12,20 @@
     @*<a asp-action="Create">Create New</a>*@
     @*@Html.ActionLink("Edit", "Edit", new {/* id=item.PrimaryKey */})*@
 </p>
-<table class="table">
+<table class="table table-striped table-dark table-hover">
     <thead>
         <tr>
             <th>
 
             </th>
-            @*<th>
+            <th>
                     <span style="visibility: hidden">icon</span>
-                </th>*@
+                </th>
             <th>
                 @Html.DisplayNameFor(model => model.Class)
             </th>
             <th>
                 Character Name
-            </th>
-            <th>
-                test
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Realm)
@@ -55,18 +52,14 @@
             <td>
                 @Html.Raw(page)
             </td>
-            @*<td>
-            <img src=@Url.Content("https://render-eu.worldofwarcraft.com/character/kazzak/180/173030068-avatar.jpg") alt=""/>
-        </td>*@
+            <td>
+            <img src=@Url.Content("https://render-eu.worldofwarcraft.com/character/kazzak/180/173030068-avatar.jpg") alt="" style="max-width: 50px"/>
+        </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Class)
             </td>
             <td>
                 <a asp-area="" asp-controller="Character" asp-route-id="@item.Id" asp-action="Character">@item.Name</a>
-            </td>
-            <td>
-                <a href="https://www.wowhead.com/item=@item.Items.ItemInfos[0].Id&bonus=@string.Join(':',item.Items.ItemInfos[0].BonusLists)" 
-                   data-wowhead="@item.Items.ItemInfos[0].Id">@item.Items.ItemInfos[0].Name</a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Realm)
