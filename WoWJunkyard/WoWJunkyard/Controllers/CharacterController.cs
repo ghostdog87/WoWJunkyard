@@ -40,8 +40,15 @@ namespace WoWJunkyard.Controllers
                 client.BaseAddress = new Uri("https://EU.api.blizzard.com/");
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                var response = await client.GetAsync("wow/character/Kazzak/chechok?fields=items&locale=en_US&access_token=" + apiKey.AccessTokenKey);
+                var apiString = "wow/character/" + realm + "/" + characterName +
+                                "?fields=items&locale=en_US&access_token=" + apiKey.AccessTokenKey;
 
+                if (string.IsNullOrEmpty(characterName))
+                {
+                    apiString = "wow/character/kazzak/chechok?fields=items&locale=en_US&access_token=" + apiKey.AccessTokenKey;
+                }
+
+                var response = await client.GetAsync(apiString);
 
                 using (HttpContent content = response.Content)
                 {
@@ -76,7 +83,7 @@ namespace WoWJunkyard.Controllers
                 }
 
                 var characters = _context.Characters
-                    .Where(x => x.Name == "chechok")
+                    .Where(x => x.Name == characterName)
                     .ToList();
 
                 return View(characters);

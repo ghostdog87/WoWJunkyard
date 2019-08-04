@@ -12,15 +12,41 @@
 <div>
     <h4>CharacterInputModel</h4>
     <hr />
-    <dl class="row">
-    @foreach (var item in Model.Items.ItemInfos)
-    {
-        <dt class="col-sm-2">
-            <a href="https://www.wowhead.com/item=@item.Id&bonus=@string.Join(':', item.BonusLists)"
-               data-wowhead="@item.Id">@item.Name</a>
-        </dt>
-    }
-    </dl>
+    <div class="row" style='background: url(@Url.Content("https://render-eu.worldofwarcraft.com/character/kazzak/180/173030068-main.jpg")) no-repeat -202px -169px; background-position: center;background-size: cover;'>
+        <div class="col-4">
+            <ul>
+                @foreach (var item in Model.Items.ItemInfos)
+                {
+                    <li>
+                        <a href="https://www.wowhead.com/item=@item.Id&bonus=@string.Join(':', item.BonusLists)"
+                           data-wowhead="@item.Id">@item.Name</a>
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="col-4">
+            <ul>
+                    @foreach (var item in Model.Items.ItemInfos)
+                    {
+                        <li>
+                            <a href="https://www.wowhead.com/item=@item.Id&bonus=@string.Join(':', item.BonusLists)"
+                               data-wowhead="@item.Id">@item.Name</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        <div class="col-4">
+            <ul>
+                @foreach (var item in Model.Items.ItemInfos)
+                {
+                    <li>
+                        <a href="https://www.wowhead.com/item=@item.Id&bonus=@string.Join(':', item.BonusLists)"
+                           data-wowhead="@item.Id">@item.Name</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
 </div>
 <div>
     <a asp-action="CharactersList" asp-controller="Character" class="btn btn-outline-info text-white">Back to List</a>

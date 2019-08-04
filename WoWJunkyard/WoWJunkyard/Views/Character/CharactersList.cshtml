@@ -8,19 +8,24 @@
 
 <h1>Characters</h1>
 
-<p>
-    @*<a asp-action="Create">Create New</a>*@
-    @*@Html.ActionLink("Edit", "Edit", new {/* id=item.PrimaryKey */})*@
-</p>
-<table class="table table-striped table-dark table-hover">
-    <thead>
+<form asp-action="CharactersList" method="get">
+    <div class="form-text">
+        <p>
+            Realm: <input type="text" name="realm" value="@ViewData["realm"]" />
+            Name: <input type="text" name="characterName" value="@ViewData["characterName"]" />
+            <input type="submit" value="Search" class="btn" /> |
+        </p>
+    </div>
+</form>
+
+@if (Model.Any())
+{
+    <table class="table table-striped table-dark table-hover">
+        <thead>
         <tr>
             <th>
 
             </th>
-            <th>
-                    <span style="visibility: hidden">icon</span>
-                </th>
             <th>
                 @Html.DisplayNameFor(model => model.Class)
             </th>
@@ -43,40 +48,39 @@
                 @Html.DisplayNameFor(model => model.Faction)
             </th>
         </tr>
-    </thead>
-    <tbody>
+        </thead>
+        <tbody>
         @foreach (var item in Model)
         {
             page++;
-        <tr>
-            <td>
-                @Html.Raw(page)
-            </td>
-            <td>
-            <img src=@Url.Content("https://render-eu.worldofwarcraft.com/character/kazzak/180/173030068-avatar.jpg") alt="" style="max-width: 50px"/>
-        </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Class)
-            </td>
-            <td>
-                <a asp-area="" asp-controller="Character" asp-route-id="@item.Id" asp-action="Character">@item.Name</a>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Realm)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Race)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Level)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AchievementPoints)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Faction)
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.Raw(page)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Class)
+                </td>
+                <td>
+                    <a asp-area="" asp-controller="Character" asp-route-id="@item.Id" asp-action="Character">@item.Name</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Realm)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Race)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Level)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AchievementPoints)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Faction)
+                </td>
+            </tr>
         }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+}
+
