@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -12,6 +13,8 @@ using WoWJunkyard.Data;
 using WoWJunkyard.Data.Models;
 using WoWJunkyard.Services;
 using WoWJunkyard.Views.Models;
+using WoWJunkyard.Views.Models.Enums;
+using WoWJunkyard.Views.Models.Lists;
 
 namespace WoWJunkyard.Controllers
 {
@@ -43,12 +46,16 @@ namespace WoWJunkyard.Controllers
                 var apiString = "wow/character/" + realm + "/" + characterName +
                                 "?fields=items&locale=en_US&access_token=" + apiKey.AccessTokenKey;
 
-                if (string.IsNullOrEmpty(characterName))
-                {
-                    apiString = "wow/character/kazzak/chechok?fields=items&locale=en_US&access_token=" + apiKey.AccessTokenKey;
-                }
-
                 var response = await client.GetAsync(apiString);
+
+                ViewBag.Realms = new RealmList().RealmNames;
+                ViewBag.Races = new RaceList().RaceNames;
+                ViewBag.Classes = new ClassList().ClassNames;
+
+                if (response.StatusCode == HttpStatusCode.NotFound)
+                {
+                    return View(new List<CharacterListViewModel>());
+                }
 
                 using (HttpContent content = response.Content)
                 {
@@ -86,7 +93,9 @@ namespace WoWJunkyard.Controllers
                     .Where(x => x.Name == characterName)
                     .ToList();
 
-                return View(characters);
+                var result = _mapper.Map<List<CharacterListViewModel>>(characters);
+
+                return View(result);
             }
         }
 

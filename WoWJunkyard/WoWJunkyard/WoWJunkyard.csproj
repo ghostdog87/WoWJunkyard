@@ -25,7 +25,8 @@
 
 
   <ItemGroup>
-    <Folder Include="Models\Profiles\" />
+    <Folder Include="Views\ViewModels\Enums\" />
+    <Folder Include="wwwroot\img\news\" />
   </ItemGroup>
 
 </Project>

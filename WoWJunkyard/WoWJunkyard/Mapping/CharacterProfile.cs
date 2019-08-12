@@ -1,6 +1,10 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using WoWJunkyard.Data.Models;
+using WoWJunkyard.Models.News;
 using WoWJunkyard.Views.Models;
+using WoWJunkyard.Views.Models.Enums;
+using WoWJunkyard.Views.ViewModels;
 
 namespace WoWJunkyard.Mapping
 {
@@ -9,6 +13,9 @@ namespace WoWJunkyard.Mapping
         public CharacterProfile()
         {
             CreateMap<CharacterInputModel, Character>();
+            CreateMap<Character, CharacterListViewModel>();
+            CreateMap<NewsViewModel, News>();
+            CreateMap<News, NewsViewModel>();
             CreateMap<ItemsInputModel, Items>()
                 .ForMember(dest =>dest.ItemInfos,m => m.MapFrom(s => s.ItemInfo));
             CreateMap<ItemInfoInputModel, ItemInfo>()

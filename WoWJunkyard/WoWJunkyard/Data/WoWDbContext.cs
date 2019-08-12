@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using WoWJunkyard.Data.Models;
+using WoWJunkyard.Models.News;
 
 namespace WoWJunkyard.Data
 {
@@ -27,6 +28,7 @@ namespace WoWJunkyard.Data
         public DbSet<WeaponInfo> WeaponInfos { get; set; }
         public DbSet<WoWAccount> WoWAccounts { get; set; }
         public DbSet<WoWUser> WoWUsers { get; set; }
+        public DbSet<News> News { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
