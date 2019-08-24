@@ -69,6 +69,12 @@ namespace WoWJunkyard
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
+                app.UseStatusCodePages(async context =>
+                {
+                    context.HttpContext.Response.ContentType = "text/plain";
+
+                    await context.HttpContext.Response.WriteAsync("Access Denied");
+                });
             }
             else
             {

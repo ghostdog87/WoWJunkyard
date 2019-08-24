@@ -42,10 +42,11 @@ namespace WoWJunkyard.Data
                 .HasKey(x => x.UserId);
 
             builder.Entity<IdentityUserRole<string>>()
-                .HasKey(x => x.RoleId);
+                .HasKey(i => new { i.UserId, i.RoleId });
 
             builder.Entity<IdentityUserToken<string>>()
                 .HasKey(x => x.UserId);
+
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

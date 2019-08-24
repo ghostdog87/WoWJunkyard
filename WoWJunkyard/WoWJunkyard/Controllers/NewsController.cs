@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -30,12 +31,14 @@ namespace WoWJunkyard.Controllers
         }
 
         // GET: News
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             return View(await _context.News.ToListAsync());
         }
 
         // GET: News/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -54,6 +57,7 @@ namespace WoWJunkyard.Controllers
         }
 
         // GET: News/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();

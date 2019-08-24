@@ -3,17 +3,15 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WoWJunkyard.Data;
 
-namespace WoWJunkyard.Data.Migrations
+namespace WoWJunkyard.Migrations
 {
     [DbContext(typeof(WoWDbContext))]
-    [Migration("20190812131506_AddedNewsModel")]
-    partial class AddedNewsModel
+    partial class WoWDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,12 +87,11 @@ namespace WoWJunkyard.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-                    b.Property<string>("RoleId")
-                        .ValueGeneratedOnAdd();
-
                     b.Property<string>("UserId");
 
-                    b.HasKey("RoleId");
+                    b.Property<string>("RoleId");
+
+                    b.HasKey("UserId", "RoleId");
 
                     b.ToTable("UserRoles");
                 });
@@ -408,8 +405,7 @@ namespace WoWJunkyard.Data.Migrations
                     b.Property<string>("Description")
                         .IsRequired();
 
-                    b.Property<string>("Image")
-                        .IsRequired();
+                    b.Property<string>("Image");
 
                     b.Property<DateTime>("PostedOn");
 

@@ -18,17 +18,20 @@ namespace WoWJunkyard.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<WoWUser> _signInManager;
         private readonly UserManager<WoWUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
         public RegisterModel(
             UserManager<WoWUser> userManager,
             SignInManager<WoWUser> signInManager,
+            RoleManager<IdentityRole> roleManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
             _logger = logger;
             _emailSender = emailSender;
         }
@@ -46,7 +49,7 @@ namespace WoWJunkyard.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 3)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
             public string Password { get; set; }
@@ -68,9 +71,32 @@ namespace WoWJunkyard.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = new WoWUser { UserName = Input.Email, Email = Input.Email };
+
+                bool adminRoleExists = await _roleManager.RoleExistsAsync("Admin");
+                bool userRoleExists = await _roleManager.RoleExistsAsync("User");
+
+                if (!adminRoleExists || !userRoleExists)
+                {
+                    var roleAdmin = new IdentityRole {Name = "Admin"};
+                    await _roleManager.CreateAsync(roleAdmin);
+                    var roleUser = new IdentityRole { Name = "User" };
+                    await _roleManager.CreateAsync(roleUser);
+                }
+
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
+                    var adminExists = await _userManager.GetUsersInRoleAsync("Admin");
+                    if (adminExists.Count == 0)
+                    {
+                        await _userManager.AddToRoleAsync(user, "Admin");
+                    }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(user, "User");
+                    }
+                    
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -84,7 +110,7 @@ namespace WoWJunkyard.Areas.Identity.Pages.Account
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     //await _signInManager.SignInAsync(user, isPersistent: false);
-                    return LocalRedirect(returnUrl);
+                    return RedirectToAction("VerifyEmail","Home");
                 }
                 foreach (var error in result.Errors)
                 {
@@ -95,5 +121,6 @@ namespace WoWJunkyard.Areas.Identity.Pages.Account
             // If we got this far, something failed, redisplay form
             return Page();
         }
+
     }
 }

@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace WoWJunkyard.Data.Migrations
+namespace WoWJunkyard.Migrations
 {
-    public partial class CharacterModel : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -64,6 +64,22 @@ namespace WoWJunkyard.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Items", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "News",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Title = table.Column<string>(nullable: false),
+                    Description = table.Column<string>(nullable: false),
+                    PostedOn = table.Column<DateTime>(nullable: false),
+                    Image = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_News", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -128,12 +144,12 @@ namespace WoWJunkyard.Data.Migrations
                 name: "UserRoles",
                 columns: table => new
                 {
-                    RoleId = table.Column<string>(nullable: false),
-                    UserId = table.Column<string>(nullable: true)
+                    UserId = table.Column<string>(nullable: false),
+                    RoleId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserRoles", x => x.RoleId);
+                    table.PrimaryKey("PK_UserRoles", x => new { x.UserId, x.RoleId });
                 });
 
             migrationBuilder.CreateTable(
@@ -265,6 +281,7 @@ namespace WoWJunkyard.Data.Migrations
                     Race = table.Column<long>(nullable: false),
                     Level = table.Column<long>(nullable: false),
                     AchievementPoints = table.Column<long>(nullable: false),
+                    Thumbnail = table.Column<string>(nullable: true),
                     Faction = table.Column<long>(nullable: false),
                     ItemsId = table.Column<int>(nullable: false),
                     WoWAccountId = table.Column<string>(nullable: true)
@@ -418,6 +435,9 @@ namespace WoWJunkyard.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Dungeons");
+
+            migrationBuilder.DropTable(
+                name: "News");
 
             migrationBuilder.DropTable(
                 name: "RoleClaims");
