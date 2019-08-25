@@ -1,9 +1,9 @@
 # WoWJunkyard
 Course project for Softuni - ASP.NET Core 2019
 
-Admin:
+# Admin:
 	email: admin@admin.bg
 	password: admin
-User:
+# User:
 	email: user@user.bg
 	password: user

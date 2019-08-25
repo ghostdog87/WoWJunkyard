@@ -65,6 +65,7 @@ namespace WoWJunkyard.Controllers
 
         // POST: News/Create
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title,Description,PostedOn,Image")] NewsViewModel news)
         {
@@ -107,6 +108,7 @@ namespace WoWJunkyard.Controllers
         }
 
         // GET: News/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -127,6 +129,7 @@ namespace WoWJunkyard.Controllers
 
         // POST: News/Edit/5
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,PostedOn,Image")] NewsViewModel news)
         {
@@ -144,6 +147,35 @@ namespace WoWJunkyard.Controllers
 
                     _context.Update(newsResult);
                     await _context.SaveChangesAsync();
+
+                    var currentNews = await _context.News.FirstOrDefaultAsync(x => x.PostedOn == newsResult.PostedOn);
+                    var currentId = currentNews.Id;
+
+                    //set images start
+                    string webRootPath = _hostingEnvironment.WebRootPath;
+                    var files = HttpContext.Request.Form.Files;
+
+                    if (files.Count > 0)
+                    {
+                        var uploads = Path.Combine(webRootPath, @"img\news");
+                        var extension = Path.GetExtension(files[0].FileName);
+                        System.IO.File.Delete(webRootPath+@"\img\news\" + currentId + extension);
+
+                        using (var filesStream = new FileStream(Path.Combine(uploads, currentId + extension), FileMode.Create))
+                        {
+                            files[0].CopyTo(filesStream);
+                        }
+                        
+                        newsResult.Image = @"\img\news\" + currentId + extension;
+                    }
+                    else
+                    {
+                        return View(news);
+                    }
+                    //set images end
+
+                    await _context.SaveChangesAsync();
+                    //return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -162,6 +194,7 @@ namespace WoWJunkyard.Controllers
         }
 
         // GET: News/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -181,6 +214,7 @@ namespace WoWJunkyard.Controllers
 
         // POST: News/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

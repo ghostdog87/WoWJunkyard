@@ -73,7 +73,7 @@ namespace WoWJunkyard
                 {
                     context.HttpContext.Response.ContentType = "text/plain";
 
-                    await context.HttpContext.Response.WriteAsync("Access Denied");
+                    await context.HttpContext.Response.WriteAsync("Error occured!");
                 });
             }
             else

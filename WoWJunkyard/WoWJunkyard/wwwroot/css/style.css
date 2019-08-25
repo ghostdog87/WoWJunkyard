@@ -25,7 +25,43 @@
         color: #ffd100 !important;
         font-size: 2em !important;
     }
-
+.news-details {
+    background-color: #242424;
+}
+.news-text, .news-text p {
+    color: #ccc;
+    font-size: 15px;
+    line-height: 1.7;
+}
+    .news-text a {
+        color: #ffd100 !important;
+    }
+        .news-text a:hover {
+            color: white !important;
+        }
+.news-text-title {
+    color: white !important;
+    font-size: 3em !important;
+}
+.guide-header {
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    height: 290px;
+    padding: 10px 10px 0;
+    position: relative;
+    width: 100%;
+}
+.icontiny {
+    background: left center no-repeat;
+    color: #a335ee !important;
+}
+.icontiny span{
+    color: #a335ee !important;
+}
+.q4, .q4 a, .color-q4, .wowhead-tooltip .q4 a, .q4.fa:before {
+    color: #a335ee !important;
+}
 html,
 body {
     height: 100%;
