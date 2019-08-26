@@ -1,7 +1,8 @@
-﻿@model WoWJunkyard.Data.Models.Character
+﻿@model WoWJunkyard.Models.Character.Character
 
 @{
     ViewData["Title"] = "Character";
+    var backgroundImage = Model.Thumbnail.Replace("avatar", "main");
 }
 
 <script>var whTooltips = { colorLinks: true, iconizeLinks: true,iconSize: 'large', renameLinks: true, dropchance: true };</script>
@@ -13,39 +14,145 @@
 </div>
 <div>
     <h4>CharacterInputModel</h4>
-    <hr />
-    <div class="row" style='background: url(@Url.Content("https://render-eu.worldofwarcraft.com/character/kazzak/180/173030068-main.jpg")) no-repeat -202px -169px; background-position: center;background-size: cover;'>
+
+    <div class="row" style='background: url(@Url.Content("https://render-eu.worldofwarcraft.com/character/" + backgroundImage)) no-repeat -202px -169px; background-position: center;background-size: cover;'>
         <div class="col-4">
             <ul>
-                @foreach (var item in Model.Items.ItemInfos)
-                {
-                    <li>
-                        <a href="https://www.wowhead.com/item=@item.Id&bonus=@string.Join(':', item.BonusLists)"
-                           data-wowhead="@item.Id">@item.Name</a>
-                    </li>
-                }
+                <li>
+                    @{
+                        var head = Model.EquippedItems.FirstOrDefault(x => x.Slot.Name == "Head");
+                    }
+                    @if (head != null)
+                    {
+                        <a href="https://www.wowhead.com/item=@head.Item.ItemIdNumber&bonus=@string.Join(':', head.Bonus)"
+                           data-wowhead="@head.Item.ItemIdNumber">@head.Name</a>
+                    }
+                    else
+                    {
+                        <div style="background-position: 0 802px;margin-left: 9px;height: 50px;width: 50px;background-image: url('https://localhost:44365/img/GameIcon-slots.png');"></div>
+                    }
+
+                </li>
+                <li>
+                    @{
+                        var neck = Model.EquippedItems.FirstOrDefault(x => x.Slot.Name == "Neck");
+                    }
+                    @if (neck != null)
+                    {
+                        <a href="https://www.wowhead.com/item=@neck.Item.ItemIdNumber&bonus=@string.Join(':', neck.Bonus)"
+                           data-wowhead="@neck.Item.ItemIdNumber">@neck.Name</a>
+                    }
+                    else
+                    {
+                        <div style="background-position: 0 755px;margin-left: 9px;height: 50px;width: 50px;background-image: url('https://localhost:44365/img/GameIcon-slots.png');"></div>
+                    }
+                </li>
+                <li>
+                    @{
+                        var shoulders = Model.EquippedItems.FirstOrDefault(x => x.Slot.Name == "Shoulders");
+                    }
+                    @if (shoulders != null)
+                    {
+                        <a href="https://www.wowhead.com/item=@shoulders.Item.ItemIdNumber&bonus=@string.Join(':', shoulders.Bonus)"
+                           data-wowhead="@shoulders.Item.ItemIdNumber">@shoulders.Name</a>
+                    }
+                    else
+                    {
+                        <div style="background-position: 0 708px;margin-left: 9px;height: 50px;width: 50px;background-image: url('https://localhost:44365/img/GameIcon-slots.png');"></div>
+                    }
+                </li>
+                <li>
+                    @{
+                        var back = Model.EquippedItems.FirstOrDefault(x => x.Slot.Name == "Back");
+                    }
+                    @if (back != null)
+                    {
+                        <a href="https://www.wowhead.com/item=@back.Item.ItemIdNumber&bonus=@string.Join(':', back.Bonus)"
+                           data-wowhead="@back.Item.ItemIdNumber">@back.Name</a>
+                    }
+                    else
+                    {
+                        <div style="background-position: 0 662px;margin-left: 9px;height: 50px;width: 50px;background-image: url('https://localhost:44365/img/GameIcon-slots.png');"></div>
+                    }
+                </li>
+                <li>
+                    @{
+                        var chest = Model.EquippedItems.FirstOrDefault(x => x.Slot.Name == "Chest");
+                    }
+                    @if (chest != null)
+                    {
+                        <a href="https://www.wowhead.com/item=@chest.Item.ItemIdNumber&bonus=@string.Join(':', chest.Bonus)"
+                           data-wowhead="@chest.Item.ItemIdNumber">@chest.Name</a>
+                    }
+                    else
+                    {
+                        <div style="background-position: 0 569px;margin-left: 9px;height: 50px;width: 50px;background-image: url('https://localhost:44365/img/GameIcon-slots.png');"></div>
+                    }
+                </li>
+                <li>
+                    @{
+                        var shirt = Model.EquippedItems.FirstOrDefault(x => x.Slot.Name == "Shirt");
+                    }
+                    @if (shirt != null)
+                    {
+                        <a href="https://www.wowhead.com/item=@shirt.Item.ItemIdNumber&bonus=@string.Join(':', shirt.Bonus)"
+                           data-wowhead="@shirt.Item.ItemIdNumber">@shirt.Name</a>
+                    }
+                    else
+                    {
+                        <div style="background-position: 0 568px;margin-left: 9px;height: 50px;width: 50px;background-image: url('https://localhost:44365/img/GameIcon-slots.png');"></div>
+                    }
+                </li>
+                <li>
+                    @{
+                        var tabard = Model.EquippedItems.FirstOrDefault(x => x.Slot.Name == "Tabard");
+                    }
+                    @if (tabard != null)
+                    {
+                        <a href="https://www.wowhead.com/item=@tabard.Item.ItemIdNumber&bonus=@string.Join(':', tabard.Bonus)"
+                           data-wowhead="@tabard.Item.ItemIdNumber">@tabard.Name</a>
+                    }
+                    else
+                    {
+                        <div style="background-position: 0 613px;margin-left: 9px;height: 50px;width: 50px;background-image: url('https://localhost:44365/img/GameIcon-slots.png');"></div>
+                    }
+                </li>
+                <li>
+                    @{
+                        var wrist = Model.EquippedItems.FirstOrDefault(x => x.Slot.Name == "Wrist");
+                    }
+                    @if (wrist != null)
+                    {
+                        <a href="https://www.wowhead.com/item=@wrist.Item.ItemIdNumber&bonus=@string.Join(':', wrist.Bonus)"
+                           data-wowhead="@wrist.Item.ItemIdNumber">@wrist.Name</a>
+                    }
+                    else
+                    {
+                        <div style="background-position: 0 518px;margin-left: 9px;height: 50px;width: 50px;background-image: url('https://localhost:44365/img/GameIcon-slots.png');"></div>
+                    }
+                </li>
             </ul>
         </div>
         <div class="col-4">
             <ul>
-                    @foreach (var item in Model.Items.ItemInfos)
+                    @*@foreach (var item in Model.EquippedItems)
                     {
                         <li>
-                            <a href="https://www.wowhead.com/item=@item.Id&bonus=@string.Join(':', item.BonusLists)"
-                               data-wowhead="@item.Id">@item.Name</a>
+                            <a href="https://www.wowhead.com/item=@item.Item.ItemIdNumber&bonus=@string.Join(':', item.Bonus)"
+                               data-wowhead="@item.Item.ItemIdNumber">@item.Name</a>
                         </li>
-                    }
+                    }*@
                 </ul>
             </div>
         <div class="col-4">
             <ul>
-                @foreach (var item in Model.Items.ItemInfos)
+                @*@foreach (var item in Model.EquippedItems)
                 {
                     <li>
-                        <a href="https://www.wowhead.com/item=@item.Id&bonus=@string.Join(':', item.BonusLists)"
-                           data-wowhead="@item.Id">@item.Name</a>
+                        <a href="https://www.wowhead.com/item=@item.Item.ItemIdNumber&bonus=@string.Join(':', item.Bonus)"
+                           data-wowhead="@item.Item.ItemIdNumber">@item.Name</a>
                     </li>
-                }
+                }*@
             </ul>
         </div>
     </div>

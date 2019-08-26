@@ -4,66 +4,22 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WoWJunkyard.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class initial_create : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "AzeriteEmpoweredItems",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AzeriteEmpoweredItems", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AzeriteItems",
-                columns: table => new
-                {
-                    AzeriteItemId = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Id = table.Column<long>(nullable: false),
-                    AzeriteLevel = table.Column<long>(nullable: false),
-                    AzeriteExperience = table.Column<long>(nullable: false),
-                    AzeriteExperienceRemaining = table.Column<long>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AzeriteItems", x => x.AzeriteItemId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Damages",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Min = table.Column<long>(nullable: false),
-                    Max = table.Column<long>(nullable: false),
-                    ExactMin = table.Column<long>(nullable: false),
-                    ExactMax = table.Column<long>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Damages", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Items",
+                name: "InventoryTypes",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AverageItemLevel = table.Column<long>(nullable: false),
-                    AverageItemLevelEquipped = table.Column<long>(nullable: false)
+                    Type = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Items", x => x.Id);
+                    table.PrimaryKey("PK_InventoryTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -182,93 +138,6 @@ namespace WoWJunkyard.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AzeritePowers",
-                columns: table => new
-                {
-                    AzeritePowerId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Id = table.Column<long>(nullable: false),
-                    Tier = table.Column<long>(nullable: false),
-                    SpellId = table.Column<long>(nullable: false),
-                    BonusListId = table.Column<long>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AzeritePowers", x => x.AzeritePowerId);
-                    table.ForeignKey(
-                        name: "FK_AzeritePowers_AzeriteEmpoweredItems_Id",
-                        column: x => x.Id,
-                        principalTable: "AzeriteEmpoweredItems",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "WeaponInfos",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    DamageId = table.Column<long>(nullable: false),
-                    WeaponSpeed = table.Column<double>(nullable: false),
-                    Dps = table.Column<double>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_WeaponInfos", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_WeaponInfos_Damages_DamageId",
-                        column: x => x.DamageId,
-                        principalTable: "Damages",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ItemInfos",
-                columns: table => new
-                {
-                    ItemInfoId = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Id = table.Column<long>(nullable: false),
-                    ItemsId = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Icon = table.Column<string>(nullable: true),
-                    Quality = table.Column<long>(nullable: false),
-                    ItemLevel = table.Column<long>(nullable: false),
-                    Armor = table.Column<long>(nullable: false),
-                    Context = table.Column<string>(nullable: true),
-                    BonusLists = table.Column<string>(nullable: true),
-                    ArtifactId = table.Column<long>(nullable: false),
-                    DisplayInfoId = table.Column<long>(nullable: false),
-                    ArtifactAppearanceId = table.Column<long>(nullable: false),
-                    AzeriteItemId = table.Column<long>(nullable: false),
-                    AzeriteEmpoweredItemId = table.Column<long>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ItemInfos", x => x.ItemInfoId);
-                    table.ForeignKey(
-                        name: "FK_ItemInfos_AzeriteEmpoweredItems_AzeriteEmpoweredItemId",
-                        column: x => x.AzeriteEmpoweredItemId,
-                        principalTable: "AzeriteEmpoweredItems",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ItemInfos_AzeriteItems_AzeriteItemId",
-                        column: x => x.AzeriteItemId,
-                        principalTable: "AzeriteItems",
-                        principalColumn: "AzeriteItemId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ItemInfos_Items_ItemsId",
-                        column: x => x.ItemsId,
-                        principalTable: "Items",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Characters",
                 columns: table => new
                 {
@@ -283,18 +152,11 @@ namespace WoWJunkyard.Migrations
                     AchievementPoints = table.Column<long>(nullable: false),
                     Thumbnail = table.Column<string>(nullable: true),
                     Faction = table.Column<long>(nullable: false),
-                    ItemsId = table.Column<int>(nullable: false),
                     WoWAccountId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Characters", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Characters_Items_ItemsId",
-                        column: x => x.ItemsId,
-                        principalTable: "Items",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Characters_WoWAccounts_WoWAccountId",
                         column: x => x.WoWAccountId,
@@ -336,27 +198,6 @@ namespace WoWJunkyard.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Stats",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    StatStat = table.Column<long>(nullable: false),
-                    Amount = table.Column<long>(nullable: false),
-                    ItemInfoId = table.Column<long>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Stats", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Stats_ItemInfos_ItemInfoId",
-                        column: x => x.ItemInfoId,
-                        principalTable: "ItemInfos",
-                        principalColumn: "ItemInfoId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Dungeons",
                 columns: table => new
                 {
@@ -377,15 +218,54 @@ namespace WoWJunkyard.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_AzeritePowers_Id",
-                table: "AzeritePowers",
-                column: "Id");
+            migrationBuilder.CreateTable(
+                name: "EquippedItems",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ItemId = table.Column<int>(nullable: false),
+                    SlotId = table.Column<int>(nullable: false),
+                    Bonus = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    CharacterId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EquippedItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EquippedItems_Characters_CharacterId",
+                        column: x => x.CharacterId,
+                        principalTable: "Characters",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_EquippedItems_InventoryTypes_SlotId",
+                        column: x => x.SlotId,
+                        principalTable: "InventoryTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Characters_ItemsId",
-                table: "Characters",
-                column: "ItemsId");
+            migrationBuilder.CreateTable(
+                name: "ItemInfos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ItemId = table.Column<long>(nullable: false),
+                    EquippedItemId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ItemInfos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ItemInfos_EquippedItems_EquippedItemId",
+                        column: x => x.EquippedItemId,
+                        principalTable: "EquippedItems",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Characters_WoWAccountId",
@@ -398,29 +278,20 @@ namespace WoWJunkyard.Migrations
                 column: "CharacterId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ItemInfos_AzeriteEmpoweredItemId",
+                name: "IX_EquippedItems_CharacterId",
+                table: "EquippedItems",
+                column: "CharacterId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EquippedItems_SlotId",
+                table: "EquippedItems",
+                column: "SlotId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItemInfos_EquippedItemId",
                 table: "ItemInfos",
-                column: "AzeriteEmpoweredItemId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ItemInfos_AzeriteItemId",
-                table: "ItemInfos",
-                column: "AzeriteItemId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ItemInfos_ItemsId",
-                table: "ItemInfos",
-                column: "ItemsId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Stats_ItemInfoId",
-                table: "Stats",
-                column: "ItemInfoId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_WeaponInfos_DamageId",
-                table: "WeaponInfos",
-                column: "DamageId");
+                column: "EquippedItemId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_WoWUser_AccountId",
@@ -431,10 +302,10 @@ namespace WoWJunkyard.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AzeritePowers");
+                name: "Dungeons");
 
             migrationBuilder.DropTable(
-                name: "Dungeons");
+                name: "ItemInfos");
 
             migrationBuilder.DropTable(
                 name: "News");
@@ -444,9 +315,6 @@ namespace WoWJunkyard.Migrations
 
             migrationBuilder.DropTable(
                 name: "Roles");
-
-            migrationBuilder.DropTable(
-                name: "Stats");
 
             migrationBuilder.DropTable(
                 name: "UserClaims");
@@ -461,31 +329,19 @@ namespace WoWJunkyard.Migrations
                 name: "UserTokens");
 
             migrationBuilder.DropTable(
-                name: "WeaponInfos");
+                name: "WoWUser");
 
             migrationBuilder.DropTable(
-                name: "WoWUser");
+                name: "EquippedItems");
 
             migrationBuilder.DropTable(
                 name: "Characters");
 
             migrationBuilder.DropTable(
-                name: "ItemInfos");
-
-            migrationBuilder.DropTable(
-                name: "Damages");
+                name: "InventoryTypes");
 
             migrationBuilder.DropTable(
                 name: "WoWAccounts");
-
-            migrationBuilder.DropTable(
-                name: "AzeriteEmpoweredItems");
-
-            migrationBuilder.DropTable(
-                name: "AzeriteItems");
-
-            migrationBuilder.DropTable(
-                name: "Items");
         }
     }
 }

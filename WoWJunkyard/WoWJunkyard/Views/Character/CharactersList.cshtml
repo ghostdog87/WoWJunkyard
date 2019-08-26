@@ -76,7 +76,7 @@
                     @classes
                 </td>
                 <td>
-                    <a asp-area="" asp-controller="Character" asp-route-id="@item.Id" asp-action="Character">@item.Name</a>
+                    <a asp-area="" asp-controller="Character" asp-route-id="@item.Id" asp-route-characterName="@item.Name" asp-route-realm="@item.Realm" asp-action="Character">@item.Name</a>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Realm)

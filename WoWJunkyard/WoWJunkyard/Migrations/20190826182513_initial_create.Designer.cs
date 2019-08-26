@@ -10,8 +10,8 @@ using WoWJunkyard.Data;
 namespace WoWJunkyard.Migrations
 {
     [DbContext(typeof(WoWDbContext))]
-    [Migration("20190824100054_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20190826182513_initial_create")]
+    partial class initial_create
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -114,113 +114,6 @@ namespace WoWJunkyard.Migrations
                     b.ToTable("UserTokens");
                 });
 
-            modelBuilder.Entity("WoWJunkyard.Data.Models.AzeriteEmpoweredItem", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AzeriteEmpoweredItems");
-                });
-
-            modelBuilder.Entity("WoWJunkyard.Data.Models.AzeriteItem", b =>
-                {
-                    b.Property<long>("AzeriteItemId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<long>("AzeriteExperience");
-
-                    b.Property<long>("AzeriteExperienceRemaining");
-
-                    b.Property<long>("AzeriteLevel");
-
-                    b.Property<long>("Id");
-
-                    b.HasKey("AzeriteItemId");
-
-                    b.ToTable("AzeriteItems");
-                });
-
-            modelBuilder.Entity("WoWJunkyard.Data.Models.AzeritePower", b =>
-                {
-                    b.Property<int>("AzeritePowerId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<long>("BonusListId");
-
-                    b.Property<long>("Id");
-
-                    b.Property<long>("SpellId");
-
-                    b.Property<long>("Tier");
-
-                    b.HasKey("AzeritePowerId");
-
-                    b.HasIndex("Id");
-
-                    b.ToTable("AzeritePowers");
-                });
-
-            modelBuilder.Entity("WoWJunkyard.Data.Models.Character", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<long>("AchievementPoints");
-
-                    b.Property<long>("Class");
-
-                    b.Property<long>("Faction");
-
-                    b.Property<int>("ItemsId");
-
-                    b.Property<long>("LastModified");
-
-                    b.Property<long>("Level");
-
-                    b.Property<string>("Name");
-
-                    b.Property<long>("Race");
-
-                    b.Property<string>("Realm");
-
-                    b.Property<string>("Thumbnail");
-
-                    b.Property<string>("WoWAccountId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ItemsId");
-
-                    b.HasIndex("WoWAccountId");
-
-                    b.ToTable("Characters");
-                });
-
-            modelBuilder.Entity("WoWJunkyard.Data.Models.Damage", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<long>("ExactMax");
-
-                    b.Property<long>("ExactMin");
-
-                    b.Property<long>("Max");
-
-                    b.Property<long>("Min");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Damages");
-                });
-
             modelBuilder.Entity("WoWJunkyard.Data.Models.Dungeon", b =>
                 {
                     b.Property<int>("Id")
@@ -240,105 +133,119 @@ namespace WoWJunkyard.Migrations
                     b.ToTable("Dungeons");
                 });
 
-            modelBuilder.Entity("WoWJunkyard.Data.Models.ItemInfo", b =>
-                {
-                    b.Property<long>("ItemInfoId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<long>("Armor");
-
-                    b.Property<long>("ArtifactAppearanceId");
-
-                    b.Property<long>("ArtifactId");
-
-                    b.Property<long>("AzeriteEmpoweredItemId");
-
-                    b.Property<long>("AzeriteItemId");
-
-                    b.Property<string>("BonusLists");
-
-                    b.Property<string>("Context");
-
-                    b.Property<long>("DisplayInfoId");
-
-                    b.Property<string>("Icon");
-
-                    b.Property<long>("Id");
-
-                    b.Property<long>("ItemLevel");
-
-                    b.Property<int>("ItemsId");
-
-                    b.Property<string>("Name");
-
-                    b.Property<long>("Quality");
-
-                    b.HasKey("ItemInfoId");
-
-                    b.HasIndex("AzeriteEmpoweredItemId");
-
-                    b.HasIndex("AzeriteItemId");
-
-                    b.HasIndex("ItemsId");
-
-                    b.ToTable("ItemInfos");
-                });
-
-            modelBuilder.Entity("WoWJunkyard.Data.Models.Items", b =>
+            modelBuilder.Entity("WoWJunkyard.Models.Character.Character", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("AverageItemLevel");
+                    b.Property<long>("AchievementPoints");
 
-                    b.Property<long>("AverageItemLevelEquipped");
+                    b.Property<long>("Class");
+
+                    b.Property<long>("Faction");
+
+                    b.Property<long>("LastModified");
+
+                    b.Property<long>("Level");
+
+                    b.Property<string>("Name");
+
+                    b.Property<long>("Race");
+
+                    b.Property<string>("Realm");
+
+                    b.Property<string>("Thumbnail");
+
+                    b.Property<string>("WoWAccountId");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Items");
+                    b.HasIndex("WoWAccountId");
+
+                    b.ToTable("Characters");
                 });
 
-            modelBuilder.Entity("WoWJunkyard.Data.Models.Stat", b =>
+            modelBuilder.Entity("WoWJunkyard.Models.Character.EquippedItem", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("Amount");
+                    b.Property<string>("Bonus");
 
-                    b.Property<long?>("ItemInfoId");
+                    b.Property<int?>("CharacterId");
 
-                    b.Property<long>("StatStat");
+                    b.Property<int>("ItemId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("SlotId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ItemInfoId");
+                    b.HasIndex("CharacterId");
 
-                    b.ToTable("Stats");
+                    b.HasIndex("SlotId");
+
+                    b.ToTable("EquippedItems");
                 });
 
-            modelBuilder.Entity("WoWJunkyard.Data.Models.WeaponInfo", b =>
+            modelBuilder.Entity("WoWJunkyard.Models.Character.InventoryType", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("DamageId");
+                    b.Property<string>("Name");
 
-                    b.Property<double>("Dps");
-
-                    b.Property<double>("WeaponSpeed");
+                    b.Property<string>("Type");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DamageId");
-
-                    b.ToTable("WeaponInfos");
+                    b.ToTable("InventoryTypes");
                 });
 
-            modelBuilder.Entity("WoWJunkyard.Data.Models.WoWAccount", b =>
+            modelBuilder.Entity("WoWJunkyard.Models.Character.ItemInfo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("EquippedItemId");
+
+                    b.Property<long>("ItemId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EquippedItemId")
+                        .IsUnique();
+
+                    b.ToTable("ItemInfos");
+                });
+
+            modelBuilder.Entity("WoWJunkyard.Models.News.News", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .IsRequired();
+
+                    b.Property<string>("Image");
+
+                    b.Property<DateTime>("PostedOn");
+
+                    b.Property<string>("Title")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("News");
+                });
+
+            modelBuilder.Entity("WoWJunkyard.Models.User.WoWAccount", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -356,7 +263,7 @@ namespace WoWJunkyard.Migrations
                     b.ToTable("WoWAccounts");
                 });
 
-            modelBuilder.Entity("WoWJunkyard.Data.Models.WoWUser", b =>
+            modelBuilder.Entity("WoWJunkyard.Models.User.WoWUser", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -398,90 +305,43 @@ namespace WoWJunkyard.Migrations
                     b.ToTable("WoWUser");
                 });
 
-            modelBuilder.Entity("WoWJunkyard.Models.News.News", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Description")
-                        .IsRequired();
-
-                    b.Property<string>("Image");
-
-                    b.Property<DateTime>("PostedOn");
-
-                    b.Property<string>("Title")
-                        .IsRequired();
-
-                    b.HasKey("Id");
-
-                    b.ToTable("News");
-                });
-
-            modelBuilder.Entity("WoWJunkyard.Data.Models.AzeritePower", b =>
-                {
-                    b.HasOne("WoWJunkyard.Data.Models.AzeriteEmpoweredItem")
-                        .WithMany("AzeritePowers")
-                        .HasForeignKey("Id")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("WoWJunkyard.Data.Models.Character", b =>
-                {
-                    b.HasOne("WoWJunkyard.Data.Models.Items", "Items")
-                        .WithMany()
-                        .HasForeignKey("ItemsId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("WoWJunkyard.Data.Models.WoWAccount")
-                        .WithMany("Characters")
-                        .HasForeignKey("WoWAccountId");
-                });
-
             modelBuilder.Entity("WoWJunkyard.Data.Models.Dungeon", b =>
                 {
-                    b.HasOne("WoWJunkyard.Data.Models.Character")
+                    b.HasOne("WoWJunkyard.Models.Character.Character")
                         .WithMany("Dungeons")
                         .HasForeignKey("CharacterId");
                 });
 
-            modelBuilder.Entity("WoWJunkyard.Data.Models.ItemInfo", b =>
+            modelBuilder.Entity("WoWJunkyard.Models.Character.Character", b =>
                 {
-                    b.HasOne("WoWJunkyard.Data.Models.AzeriteEmpoweredItem", "AzeriteEmpoweredItem")
-                        .WithMany()
-                        .HasForeignKey("AzeriteEmpoweredItemId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("WoWJunkyard.Data.Models.AzeriteItem", "AzeriteItem")
-                        .WithMany()
-                        .HasForeignKey("AzeriteItemId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("WoWJunkyard.Data.Models.Items", "Items")
-                        .WithMany("ItemInfos")
-                        .HasForeignKey("ItemsId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                    b.HasOne("WoWJunkyard.Models.User.WoWAccount")
+                        .WithMany("Characters")
+                        .HasForeignKey("WoWAccountId");
                 });
 
-            modelBuilder.Entity("WoWJunkyard.Data.Models.Stat", b =>
+            modelBuilder.Entity("WoWJunkyard.Models.Character.EquippedItem", b =>
                 {
-                    b.HasOne("WoWJunkyard.Data.Models.ItemInfo")
-                        .WithMany("Stats")
-                        .HasForeignKey("ItemInfoId");
-                });
+                    b.HasOne("WoWJunkyard.Models.Character.Character", "Character")
+                        .WithMany("EquippedItems")
+                        .HasForeignKey("CharacterId");
 
-            modelBuilder.Entity("WoWJunkyard.Data.Models.WeaponInfo", b =>
-                {
-                    b.HasOne("WoWJunkyard.Data.Models.Damage", "Damage")
+                    b.HasOne("WoWJunkyard.Models.Character.InventoryType", "Slot")
                         .WithMany()
-                        .HasForeignKey("DamageId")
+                        .HasForeignKey("SlotId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("WoWJunkyard.Data.Models.WoWUser", b =>
+            modelBuilder.Entity("WoWJunkyard.Models.Character.ItemInfo", b =>
                 {
-                    b.HasOne("WoWJunkyard.Data.Models.WoWAccount", "Account")
+                    b.HasOne("WoWJunkyard.Models.Character.EquippedItem", "EquippedItem")
+                        .WithOne("Item")
+                        .HasForeignKey("WoWJunkyard.Models.Character.ItemInfo", "EquippedItemId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("WoWJunkyard.Models.User.WoWUser", b =>
+                {
+                    b.HasOne("WoWJunkyard.Models.User.WoWAccount", "Account")
                         .WithMany()
                         .HasForeignKey("AccountId");
                 });

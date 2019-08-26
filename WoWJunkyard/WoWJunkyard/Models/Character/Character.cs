@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+using WoWJunkyard.Data.Models;
 
-namespace WoWJunkyard.Data.Models
+namespace WoWJunkyard.Models.Character
 {
     public class Character
     {
         public Character()
         {
             this.Dungeons = new List<Dungeon>();
+            this.EquippedItems = new List<EquippedItem>();
         }
 
         public int Id { get; set; }
@@ -32,8 +33,6 @@ namespace WoWJunkyard.Data.Models
 
         public List<Dungeon> Dungeons { get; set; }
 
-        public int ItemsId { get; set; }
-
-        public Items Items { get; set; }
+        public List<EquippedItem> EquippedItems { get; set; }
     }
 }

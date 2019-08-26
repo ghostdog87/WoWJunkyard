@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WoWJunkyard.Data.Models;
+using WoWJunkyard.Models.User;
 
 namespace WoWJunkyard.Areas.Identity.Pages.Account
 {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace WoWJunkyard.Data.Models
+namespace WoWJunkyard.Models.User
 {
     // Add profile data for application users by adding properties to the WoWUser class
     public class WoWUser : IdentityUser

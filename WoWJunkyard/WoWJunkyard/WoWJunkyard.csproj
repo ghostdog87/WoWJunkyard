@@ -6,13 +6,6 @@
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Data\Migrations\20190728183503_AddedCharacterData.cs" />
-    <Compile Remove="Data\Migrations\20190728183503_AddedCharacterData.Designer.cs" />
-    <Compile Remove="Data\Migrations\20190729193748_AddCharacterModels.cs" />
-    <Compile Remove="Data\Migrations\20190729193748_AddCharacterModels.Designer.cs" />
-  </ItemGroup>
-
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.1.1" />
@@ -25,7 +18,6 @@
 
 
   <ItemGroup>
-    <Folder Include="Data\Migrations\" />
     <Folder Include="Views\ViewModels\Enums\" />
     <Folder Include="wwwroot\img\news\" />
   </ItemGroup>

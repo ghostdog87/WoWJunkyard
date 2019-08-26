@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 
-namespace WoWJunkyard.Data.Models
+namespace WoWJunkyard.Models.User
 {
     public class WoWAccount
     {
         public WoWAccount()
         {
-            this.Characters = new List<Character>();
+            this.Characters = new List<Character.Character>();
         }
         
         public string Id { get; set; }
@@ -17,7 +17,7 @@ namespace WoWJunkyard.Data.Models
 
         public string Realm { get; set; }
 
-        public ICollection<Character> Characters { get; set; }
+        public ICollection<Character.Character> Characters { get; set; }
 
         public bool IsVerified { get; set; }
     }

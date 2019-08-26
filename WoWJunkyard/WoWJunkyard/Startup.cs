@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebPWrecover.Services;
 using WoWJunkyard.Data.Models;
+using WoWJunkyard.Models.User;
 using WoWJunkyard.Services;
 
 namespace WoWJunkyard
@@ -57,6 +58,7 @@ namespace WoWJunkyard
             services.AddTransient<IEmailSender, EmailSender>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
             services.AddSingleton<IWoWToken, WoWToken>();
+            services.AddScoped<IWoWClient, WoWClient>();
             services.AddAutoMapper(typeof(Startup));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
