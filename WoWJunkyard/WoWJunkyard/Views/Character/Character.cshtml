@@ -29,7 +29,7 @@
                     }
                     else
                     {
-                        <div style="background-position: 0 802px;margin-left: 9px;height: 50px;width: 50px;background-image: url('https://localhost:44365/img/GameIcon-slots.png');"></div>
+                        <div class="items-icons" style="background-position: 0 1212px;"></div>
                     }
 
                 </li>
@@ -44,7 +44,7 @@
                     }
                     else
                     {
-                        <div style="background-position: 0 755px;margin-left: 9px;height: 50px;width: 50px;background-image: url('https://localhost:44365/img/GameIcon-slots.png');"></div>
+                        <div class="items-icons" style="background-position: 0 1138px;"></div>
                     }
                 </li>
                 <li>
@@ -58,7 +58,7 @@
                     }
                     else
                     {
-                        <div style="background-position: 0 708px;margin-left: 9px;height: 50px;width: 50px;background-image: url('https://localhost:44365/img/GameIcon-slots.png');"></div>
+                        <div class="items-icons" style="background-position: 0 1067px;"></div>
                     }
                 </li>
                 <li>
@@ -72,7 +72,7 @@
                     }
                     else
                     {
-                        <div style="background-position: 0 662px;margin-left: 9px;height: 50px;width: 50px;background-image: url('https://localhost:44365/img/GameIcon-slots.png');"></div>
+                        <div class="items-icons" style="background-position: 0 662px;"></div>
                     }
                 </li>
                 <li>
@@ -86,7 +86,7 @@
                     }
                     else
                     {
-                        <div style="background-position: 0 569px;margin-left: 9px;height: 50px;width: 50px;background-image: url('https://localhost:44365/img/GameIcon-slots.png');"></div>
+                        <div class="items-icons" style="background-position: 0 569px;"></div>
                     }
                 </li>
                 <li>
@@ -100,7 +100,7 @@
                     }
                     else
                     {
-                        <div style="background-position: 0 568px;margin-left: 9px;height: 50px;width: 50px;background-image: url('https://localhost:44365/img/GameIcon-slots.png');"></div>
+                        <div class="items-icons" style="background-position: 0 568px;"></div>
                     }
                 </li>
                 <li>
@@ -114,7 +114,7 @@
                     }
                     else
                     {
-                        <div style="background-position: 0 613px;margin-left: 9px;height: 50px;width: 50px;background-image: url('https://localhost:44365/img/GameIcon-slots.png');"></div>
+                        <div class="items-icons" style="background-position: 0 613px;"></div>
                     }
                 </li>
                 <li>
@@ -128,7 +128,7 @@
                     }
                     else
                     {
-                        <div style="background-position: 0 518px;margin-left: 9px;height: 50px;width: 50px;background-image: url('https://localhost:44365/img/GameIcon-slots.png');"></div>
+                        <div class="items-icons" style="background-position: 0 518px;"></div>
                     }
                 </li>
             </ul>
@@ -144,15 +144,121 @@
                     }*@
                 </ul>
             </div>
-        <div class="col-4">
+        <div class="col-4 right-items">
             <ul>
-                @*@foreach (var item in Model.EquippedItems)
-                {
-                    <li>
-                        <a href="https://www.wowhead.com/item=@item.Item.ItemIdNumber&bonus=@string.Join(':', item.Bonus)"
-                           data-wowhead="@item.Item.ItemIdNumber">@item.Name</a>
-                    </li>
-                }*@
+                <li>
+                    @{
+                        var hands = Model.EquippedItems.FirstOrDefault(x => x.Slot.Name == "Hands");
+                    }
+                    @if (hands != null)
+                    {
+                        <a href="https://www.wowhead.com/item=@hands.Item.ItemIdNumber&bonus=@string.Join(':', hands.Bonus)"
+                           data-wowhead="@hands.Item.ItemIdNumber">@hands.Name</a>
+                    }
+                    else
+                    {
+                        <div class="items-icons" style="background-position: 0 802px;"></div>
+                    }
+
+                </li>
+                <li>
+                    @{
+                        var waist = Model.EquippedItems.FirstOrDefault(x => x.Slot.Name == "Waist");
+                    }
+                    @if (waist != null)
+                    {
+                        <a href="https://www.wowhead.com/item=@waist.Item.ItemIdNumber&bonus=@string.Join(':', waist.Bonus)"
+                           data-wowhead="@waist.Item.ItemIdNumber">@waist.Name</a>
+                    }
+                    else
+                    {
+                        <div class="items-icons" style="background-position: 0 755px;"></div>
+                    }
+                </li>
+                <li>
+                    @{
+                        var legs = Model.EquippedItems.FirstOrDefault(x => x.Slot.Name == "Legs");
+                    }
+                    @if (legs != null)
+                    {
+                        <a href="https://www.wowhead.com/item=@legs.Item.ItemIdNumber&bonus=@string.Join(':', legs.Bonus)"
+                           data-wowhead="@legs.Item.ItemIdNumber">@legs.Name</a>
+                    }
+                    else
+                    {
+                        <div class="items-icons" style="background-position: 0 708px;"></div>
+                    }
+                </li>
+                <li>
+                    @{
+                        var feet = Model.EquippedItems.FirstOrDefault(x => x.Slot.Name == "Feet");
+                    }
+                    @if (feet != null)
+                    {
+                        <a href="https://www.wowhead.com/item=@feet.Item.ItemIdNumber&bonus=@string.Join(':', feet.Bonus)"
+                           data-wowhead="@feet.Item.ItemIdNumber">@feet.Name</a>
+                    }
+                    else
+                    {
+                        <div class="items-icons" style="background-position: 0 662px;"></div>
+                    }
+                </li>
+                <li>
+                    @{
+                        var ring1 = Model.EquippedItems.FirstOrDefault(x => x.Slot.Name == "Ring 1");
+                    }
+                    @if (ring1 != null)
+                    {
+                        <a href="https://www.wowhead.com/item=@ring1.Item.ItemIdNumber&bonus=@string.Join(':', ring1.Bonus)"
+                           data-wowhead="@ring1.Item.ItemIdNumber">@ring1.Name</a>
+                    }
+                    else
+                    {
+                        <div class="items-icons" style="background-position: 0 569px;"></div>
+                    }
+                </li>
+                <li>
+                    @{
+                        var ring2 = Model.EquippedItems.FirstOrDefault(x => x.Slot.Name == "Ring 2");
+                    }
+                    @if (ring2 != null)
+                    {
+                        <a href="https://www.wowhead.com/item=@ring2.Item.ItemIdNumber&bonus=@string.Join(':', ring2.Bonus)"
+                           data-wowhead="@ring2.Item.ItemIdNumber">@ring2.Name</a>
+                    }
+                    else
+                    {
+                        <div class="items-icons" style="background-position: 0 568px;"></div>
+                    }
+                </li>
+                <li>
+                    @{
+                        var trinket1 = Model.EquippedItems.FirstOrDefault(x => x.Slot.Name == "Trinket 1");
+                    }
+                    @if (trinket1 != null)
+                    {
+                        <a href="https://www.wowhead.com/item=@trinket1.Item.ItemIdNumber&bonus=@string.Join(':', trinket1.Bonus)"
+                           data-wowhead="@trinket1.Item.ItemIdNumber">@trinket1.Name</a>
+                    }
+                    else
+                    {
+                        <div class="items-icons" style="background-position: 0 613px;"></div>
+                    }
+                </li>
+                <li>
+                    @{
+                        var trinket2 = Model.EquippedItems.FirstOrDefault(x => x.Slot.Name == "Trinket 2");
+                    }
+                    @if (trinket2 != null)
+                    {
+                        <a href="https://www.wowhead.com/item=@trinket2.Item.ItemIdNumber&bonus=@string.Join(':', trinket2.Bonus)"
+                           data-wowhead="@trinket2.Item.ItemIdNumber">@trinket2.Name</a>
+                    }
+                    else
+                    {
+                        <div class="items-icons" style="background-position: 0 518px;"></div>
+                    }
+                </li>
             </ul>
         </div>
     </div>

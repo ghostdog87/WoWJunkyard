@@ -37,12 +37,34 @@ namespace WoWJunkyard.Controllers
         [HttpGet("/Characters")]
         public async Task<ActionResult> CharactersList(string characterName, string realm)
         {
-            
-            var characterApi = await _wowClient.GetCharacterAsync(realm, characterName);
-
             ViewBag.Realms = new RealmList().RealmNames;
             ViewBag.Races = new RaceList().RaceNames;
             ViewBag.Classes = new ClassList().ClassNames;
+
+            var characterExistInRealm = await
+                _context.Characters.Where(x => x.Name == characterName && x.Realm == realm).ToListAsync();
+
+            if (characterExistInRealm.Count > 0)
+            {
+                var characterList = _mapper.Map<List<CharacterListViewModel>>(characterExistInRealm);
+
+                return View(characterList);
+            }
+
+            if (realm == "Realm")
+            {
+                var characterExist = await
+                    _context.Characters.Where(x => x.Name == characterName).ToListAsync();
+
+                if (characterExist.Count > 0)
+                {
+                    var characterList = _mapper.Map<List<CharacterListViewModel>>(characterExist);
+
+                    return View(characterList);
+                }
+            }
+
+            var characterApi = await _wowClient.GetCharacterAsync(realm, characterName);
 
             if (characterApi.StatusCode == HttpStatusCode.NotFound)
             {
@@ -51,13 +73,9 @@ namespace WoWJunkyard.Controllers
 
             using (HttpContent content = characterApi.Content)
             {
-                var inputModel = new CharacterInputModel();
-
                 string jsonResult = await content.ReadAsStringAsync();
-                inputModel = CharacterInputModel.FromJson(jsonResult);
-
+                var inputModel = CharacterInputModel.FromJson(jsonResult);
                 var character = _mapper.Map<Character>(inputModel);
-
                 _context.Characters.Add(character);
                 await _context.SaveChangesAsync();
             }
@@ -67,9 +85,7 @@ namespace WoWJunkyard.Controllers
                 .ToList();
 
             var result = _mapper.Map<List<CharacterListViewModel>>(characters);
-
             return View(result);
-            
         }
 
 
@@ -79,24 +95,44 @@ namespace WoWJunkyard.Controllers
 
             using (HttpContent content = characterApi.Content)
             {
-                var inputModel = new CharacterItemsInputModel();
 
                 string jsonResult = await content.ReadAsStringAsync();
-                inputModel = CharacterItemsInputModel.FromJson(jsonResult);
+                var inputModel = CharacterItemsInputModel.FromJson(jsonResult);
 
                 var characterItems = _mapper.Map<List<EquippedItem>>(inputModel.EquippedItems);
 
                 var character = await _context.Characters
                     .Where(x => x.Id == id)
                     .Include(x => x.EquippedItems)
-                    .FirstAsync();
+                    .FirstOrDefaultAsync();
 
                 if (characterItems != null)
                 {
-                    character.EquippedItems.AddRange(characterItems);
-                }
+                    foreach (var characterItem in characterItems)
+                    {
+                        var item = await _context.EquippedItems
+                            .Include(x => x.Item)
+                            .Include(x => x.Slot)
+                            .FirstOrDefaultAsync(x =>
+                                x.Item.ItemIdNumber == characterItem.Item.ItemIdNumber);
 
-                await _context.SaveChangesAsync();
+                        if (item != null)
+                        {
+                            var slot = await _context.EquippedItems
+                                .Include(x => x.Slot)
+                                .FirstOrDefaultAsync(x => x.Slot.Name == item.Slot.Name);
+
+                            if (slot != null)
+                            {
+                                item.Slot = slot.Slot;
+                            }
+                        }
+
+                        character.EquippedItems.Add(item ?? characterItem);
+                    }
+
+                    await _context.SaveChangesAsync();
+                }
 
                 return View(character);
             }

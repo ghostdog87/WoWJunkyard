@@ -10,8 +10,6 @@ namespace WoWJunkyard.Models.Character
 
         public long ItemIdNumber { get; set; }
 
-        public int EquippedItemId { get; set; }
-
         public EquippedItem EquippedItem { get; set; }
     }
 }

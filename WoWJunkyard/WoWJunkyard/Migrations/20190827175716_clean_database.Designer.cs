@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WoWJunkyard.Data;
 
 namespace WoWJunkyard.Migrations
 {
     [DbContext(typeof(WoWDbContext))]
-    partial class WoWDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190827175716_clean_database")]
+    partial class clean_database
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -212,6 +214,8 @@ namespace WoWJunkyard.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("EquippedItemId");
 
                     b.Property<long>("ItemIdNumber");
 
