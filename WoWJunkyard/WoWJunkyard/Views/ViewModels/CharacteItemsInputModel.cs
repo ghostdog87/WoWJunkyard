@@ -37,12 +37,6 @@
         public Realm Realm { get; set; }
     }
 
-    public partial class Self
-    {
-        [JsonProperty("href")]
-        public Uri Href { get; set; }
-    }
-
     public partial class Realm
     {
         [JsonProperty("key")]
@@ -515,12 +509,12 @@
         public static CharacterItemsInputModel FromJson(string json) => JsonConvert.DeserializeObject<CharacterItemsInputModel>(json, Converter.Settings);
     }
 
-    public static class Serialize
+    public static class CharacterItemsInputModelSerialize
     {
         public static string ToJson(this CharacterItemsInputModel self) => JsonConvert.SerializeObject(self, Converter.Settings);
     }
 
-    internal static class Converter
+    internal static class CharacterItemsInputModelConverter
     {
         public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
         {

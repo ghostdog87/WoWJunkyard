@@ -5,17 +5,22 @@
     var backgroundImage = Model.Thumbnail.Replace("avatar", "main");
 }
 
-<script>var whTooltips = { colorLinks: true, iconizeLinks: true,iconSize: 'large', renameLinks: true, dropchance: true };</script>
+<script>var whTooltips = { colorLinks: true, iconizeLinks: true, iconSize: 'large', renameLinks: true, dropchance: true };</script>
 <script src="https://wow.zamimg.com/widgets/power.js"></script>
 
-<h1>Character</h1>
-<div>
-    <a asp-action="CharactersList" asp-controller="Character" class="btn btn-outline-info text-white">Back to List</a>
-</div>
-<div>
-    <h4>CharacterInputModel</h4>
+<div class="text-center class-@Model.Class character-title">@Model.Name</div>
 
-    <div class="row" style='background: url(@Url.Content("https://render-eu.worldofwarcraft.com/character/" + backgroundImage)) no-repeat -202px -169px; background-position: center;background-size: cover;'>
+
+<div>
+<h4>CharacterInputModel</h4>
+
+<ul class="nav">
+    <li class="nav-item">
+        <a class="nav-link btn btn-outline-warning" href="#">Mythic Plus Progress</a>
+    </li>
+</ul>
+    <hr>
+<div class="row" style='padding-bottom: 20px;background: url(@Url.Content("https://render-eu.worldofwarcraft.com/character/" + backgroundImage)) no-repeat -202px -169px; background-position: center;background-size: cover;'>
         <div class="col-4">
             <ul>
                 <li>
@@ -44,7 +49,7 @@
                     }
                     else
                     {
-                        <div class="items-icons" style="background-position: 0 1138px;"></div>
+                        <div class="items-icons" style="background-position: 0 1137px;"></div>
                     }
                 </li>
                 <li>
@@ -58,7 +63,7 @@
                     }
                     else
                     {
-                        <div class="items-icons" style="background-position: 0 1067px;"></div>
+                        <div class="items-icons" style="background-position: 0 1065px;"></div>
                     }
                 </li>
                 <li>
@@ -72,7 +77,7 @@
                     }
                     else
                     {
-                        <div class="items-icons" style="background-position: 0 662px;"></div>
+                        <div class="items-icons" style="background-position: 0 997px;"></div>
                     }
                 </li>
                 <li>
@@ -86,7 +91,7 @@
                     }
                     else
                     {
-                        <div class="items-icons" style="background-position: 0 569px;"></div>
+                        <div class="items-icons" style="background-position: 0 926px;"></div>
                     }
                 </li>
                 <li>
@@ -100,7 +105,7 @@
                     }
                     else
                     {
-                        <div class="items-icons" style="background-position: 0 568px;"></div>
+                        <div class="items-icons" style="background-position: 0 856px;"></div>
                     }
                 </li>
                 <li>
@@ -114,7 +119,7 @@
                     }
                     else
                     {
-                        <div class="items-icons" style="background-position: 0 613px;"></div>
+                        <div class="items-icons" style="background-position: 0 854px;"></div>
                     }
                 </li>
                 <li>
@@ -128,36 +133,58 @@
                     }
                     else
                     {
-                        <div class="items-icons" style="background-position: 0 518px;"></div>
+                        <div class="items-icons" style="background-position: 0 781px;"></div>
                     }
                 </li>
             </ul>
         </div>
         <div class="col-4">
-            <ul>
-                    @*@foreach (var item in Model.EquippedItems)
+            <ul style="display: flex; position: relative; top: 480px; margin: 0 auto; max-width: 145px;" >
+                <li>
+                    @{
+                        var mh = Model.EquippedItems.FirstOrDefault(x => x.Slot.Name == "Main Hand");
+                    }
+                    @if (mh != null)
                     {
-                        <li>
-                            <a href="https://www.wowhead.com/item=@item.Item.ItemIdNumber&bonus=@string.Join(':', item.Bonus)"
-                               data-wowhead="@item.Item.ItemIdNumber">@item.Name</a>
-                        </li>
-                    }*@
-                </ul>
-            </div>
-        <div class="col-4 right-items">
-            <ul>
+                        <a style="text-align: right" href="https://www.wowhead.com/item=@mh.Item.ItemIdNumber&bonus=@string.Join(':', mh.Bonus)"
+                           data-wowhead="@mh.Item.ItemIdNumber">@mh.Name</a>
+                    }
+                    else
+                    {
+                        <div class="items-icons" style="background-position: 0 285px;"></div>
+                    }
+
+                </li>
+                <li>
+                    @{
+                        var of = Model.EquippedItems.FirstOrDefault(x => x.Slot.Name == "Off Hand");
+                    }
+                    @if (of != null)
+                    {
+                        <a href="https://www.wowhead.com/item=@of.Item.ItemIdNumber&bonus=@string.Join(':', of.Bonus)"
+                           data-wowhead="@of.Item.ItemIdNumber">@of.Name</a>
+                    }
+                    else
+                    {
+                        <div class="items-icons" style="background-position: 0 214px;"></div>
+                    }
+                </li>
+            </ul>
+        </div>
+        <div class="col-4" id="right-items" >
+            <ul class="float-right">
                 <li>
                     @{
                         var hands = Model.EquippedItems.FirstOrDefault(x => x.Slot.Name == "Hands");
                     }
                     @if (hands != null)
                     {
-                        <a href="https://www.wowhead.com/item=@hands.Item.ItemIdNumber&bonus=@string.Join(':', hands.Bonus)"
+                        <a style="text-align: right" href="https://www.wowhead.com/item=@hands.Item.ItemIdNumber&bonus=@string.Join(':', hands.Bonus)"
                            data-wowhead="@hands.Item.ItemIdNumber">@hands.Name</a>
                     }
                     else
                     {
-                        <div class="items-icons" style="background-position: 0 802px;"></div>
+                        <div class="items-icons" style="background-position: 0 712px;"></div>
                     }
 
                 </li>
@@ -172,7 +199,7 @@
                     }
                     else
                     {
-                        <div class="items-icons" style="background-position: 0 755px;"></div>
+                        <div class="items-icons" style="background-position: 0 641px;"></div>
                     }
                 </li>
                 <li>
@@ -186,7 +213,7 @@
                     }
                     else
                     {
-                        <div class="items-icons" style="background-position: 0 708px;"></div>
+                        <div class="items-icons" style="background-position: 0 570px;"></div>
                     }
                 </li>
                 <li>
@@ -200,7 +227,7 @@
                     }
                     else
                     {
-                        <div class="items-icons" style="background-position: 0 662px;"></div>
+                        <div class="items-icons" style="background-position: 0 501px;"></div>
                     }
                 </li>
                 <li>
@@ -214,7 +241,7 @@
                     }
                     else
                     {
-                        <div class="items-icons" style="background-position: 0 569px;"></div>
+                        <div class="items-icons" style="background-position: 0 428px;"></div>
                     }
                 </li>
                 <li>
@@ -228,7 +255,7 @@
                     }
                     else
                     {
-                        <div class="items-icons" style="background-position: 0 568px;"></div>
+                        <div class="items-icons" style="background-position: 0 428px;"></div>
                     }
                 </li>
                 <li>
@@ -242,7 +269,7 @@
                     }
                     else
                     {
-                        <div class="items-icons" style="background-position: 0 613px;"></div>
+                        <div class="items-icons" style="background-position: 0 356px;"></div>
                     }
                 </li>
                 <li>
@@ -256,7 +283,7 @@
                     }
                     else
                     {
-                        <div class="items-icons" style="background-position: 0 518px;"></div>
+                        <div class="items-icons" style="background-position: 0 356px;"></div>
                     }
                 </li>
             </ul>
@@ -264,5 +291,41 @@
     </div>
 </div>
 
+@section Scripts {
+    <script>
+        var timer = setInterval(myFunction, 100);
 
+        function myFunction() {
+
+            var allItems = $("li a span");
+
+            if (allItems.length > 0) {
+                for (var i = 0; i < allItems.length; i++) {
+                    if (i % 2 !== 0) {
+                        $(allItems.eq(i)).addClass("item-tooltip");
+                    }
+                }
+
+                //clearInterval(timer);
+                return;
+            }
+
+            // ONLY FOR RIGHT ITEMS
+            //var rightItems = $("#right-items a span");
+            
+
+            //if (rightItems.length > 0) {
+            //    for (var i = 0; i < rightItems.length; i++) {
+            //        if (i % 2 !== 0) {
+            //            $(rightItems.eq(i)).insertBefore($(rightItems.eq(i)).prev());
+            //            $(rightItems.eq(i)).addClass("item-tooltip");
+            //        }
+            //    }
+
+            //    clearInterval(timer);
+            //    return;
+            //}
+        }
+    </script>
+}
 

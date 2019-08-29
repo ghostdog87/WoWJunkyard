@@ -1,0 +1,21 @@
+﻿@model WoWJunkyard.Models.Character.Character
+
+@{
+    ViewData["Title"] = "MythicPlus";
+}
+
+<h1>MythicPlus</h1>
+
+<div>
+    <h4>Character</h4>
+    <hr />
+    
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.LastModified)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LastModified)
+        </dd>
+    </dl>
+</div>

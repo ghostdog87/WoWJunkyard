@@ -15,8 +15,8 @@ using WoWJunkyard.Models.Character;
 using WoWJunkyard.Services;
 using WoWJunkyard.Views.Models;
 using WoWJunkyard.Views.Models.Enums;
-using WoWJunkyard.Views.Models.Lists;
 using WoWJunkyard.Views.ViewModels;
+using WoWJunkyard.Views.ViewModels.ViewBags;
 
 namespace WoWJunkyard.Controllers
 {
@@ -40,6 +40,13 @@ namespace WoWJunkyard.Controllers
             ViewBag.Realms = new RealmList().RealmNames;
             ViewBag.Races = new RaceList().RaceNames;
             ViewBag.Classes = new ClassList().ClassNames;
+            ViewBag.Factions = new FactionList().FactionNames;
+
+            if (!string.IsNullOrEmpty(characterName) && (characterName.Length < 2 || characterName.Length > 12))
+            {
+                ModelState.AddModelError("", "Character name must be between 2 and 12 characters!");
+                return View(new List<CharacterListViewModel>());
+            }
 
             var characterExistInRealm = await
                 _context.Characters.Where(x => x.Name == characterName && x.Realm == realm).ToListAsync();
