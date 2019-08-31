@@ -8,14 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using WoWJunkyard.Services.Utilities;
 
 namespace WoWJunkyard.Services
 {
     public class WoWToken : IWoWToken
     {
 
-        private const string ClientId = "31862b71351440cea1b783c37e872a6a";
-        private const string ClientSecret = "T8LaE8jvwp1q6TCLMvB5zs7GRikaRRLb";
 
         public WoWToken()
         {
@@ -26,7 +25,7 @@ namespace WoWJunkyard.Services
 
             using (var client = new HttpClient())
             {
-                string pass = Convert.ToBase64String(Encoding.ASCII.GetBytes(ClientId + ":" + ClientSecret));
+                string pass = Convert.ToBase64String(Encoding.ASCII.GetBytes(GlobalConstants.ClientId + ":" + GlobalConstants.ClientSecret));
 
                 client.BaseAddress = new Uri("https://eu.battle.net/oauth/token");
 

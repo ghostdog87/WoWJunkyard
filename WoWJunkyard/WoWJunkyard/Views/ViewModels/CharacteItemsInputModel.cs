@@ -22,6 +22,12 @@
         public List<Set> EquippedItemSets { get; set; }
     }
 
+    public partial class Self
+    {
+        [JsonProperty("href")]
+        public Uri Href { get; set; }
+    }
+
     public partial class CharacterClass
     {
         [JsonProperty("key")]
@@ -509,12 +515,12 @@
         public static CharacterItemsInputModel FromJson(string json) => JsonConvert.DeserializeObject<CharacterItemsInputModel>(json, Converter.Settings);
     }
 
-    public static class CharacterItemsInputModelSerialize
+    public static class Serialize
     {
         public static string ToJson(this CharacterItemsInputModel self) => JsonConvert.SerializeObject(self, Converter.Settings);
     }
 
-    internal static class CharacterItemsInputModelConverter
+    internal static class Converter
     {
         public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
         {

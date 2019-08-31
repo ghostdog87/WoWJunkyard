@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WoWJunkyard.Data;
 using WoWJunkyard.Models.News;
+using WoWJunkyard.Services;
 using WoWJunkyard.Views.Models;
 using WoWJunkyard.Views.ViewModels;
 
@@ -22,19 +23,21 @@ namespace WoWJunkyard.Controllers
         private readonly WoWDbContext _context;
         private readonly IMapper _mapper;
         private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly INewsService _news;
 
-        public NewsController(WoWDbContext context, IMapper mapper, IHostingEnvironment hostingEnvironment)
+        public NewsController(WoWDbContext context, IMapper mapper, IHostingEnvironment hostingEnvironment, INewsService news)
         {
             _context = context;
             _mapper = mapper;
             _hostingEnvironment = hostingEnvironment;
+            _news = news;
         }
 
         // GET: News
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.News.ToListAsync());
+            return View(await _news.GetAllNews());
         }
 
         // GET: News/Details/5
@@ -46,8 +49,8 @@ namespace WoWJunkyard.Controllers
                 return NotFound();
             }
 
-            var news = await _context.News
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var news = await _news.GetNews(id);
+
             if (news == null)
             {
                 return NotFound();
@@ -74,10 +77,10 @@ namespace WoWJunkyard.Controllers
                 var newsResult = _mapper.Map<News>(news);
                 newsResult.PostedOn = DateTime.UtcNow;
 
-                _context.Add(newsResult);
-                await _context.SaveChangesAsync();
+                await _news.CreateNews(newsResult);
 
-                var currentNews = await _context.News.FirstOrDefaultAsync(x => x.PostedOn == newsResult.PostedOn);
+                var currentNews = await _news.GetNewsByPostOn(newsResult.PostedOn);
+
                 var currentId = currentNews.Id;
 
                 //set images start
@@ -101,7 +104,7 @@ namespace WoWJunkyard.Controllers
                 }
                 //set images end
 
-                await _context.SaveChangesAsync();
+                await _news.SaveNews();
                 return RedirectToAction(nameof(Index));
             }
             return View(news);
@@ -116,7 +119,8 @@ namespace WoWJunkyard.Controllers
                 return NotFound();
             }
 
-            var news = await _context.News.FindAsync(id);
+            var news = await _news.GetNews(id);
+
             if (news == null)
             {
                 return NotFound();
@@ -145,10 +149,9 @@ namespace WoWJunkyard.Controllers
                     var newsResult = _mapper.Map<News>(news);
                     newsResult.PostedOn = DateTime.UtcNow;
 
-                    _context.Update(newsResult);
-                    await _context.SaveChangesAsync();
+                    await _news.UpdateNews(newsResult);
 
-                    var currentNews = await _context.News.FirstOrDefaultAsync(x => x.PostedOn == newsResult.PostedOn);
+                    var currentNews = await _news.GetNewsByPostOn(newsResult.PostedOn);
                     var currentId = currentNews.Id;
 
                     //set images start
@@ -174,18 +177,14 @@ namespace WoWJunkyard.Controllers
                     }
                     //set images end
 
-                    await _context.SaveChangesAsync();
-                    //return RedirectToAction(nameof(Index));
+                    await _news.SaveNews();
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!NewsExists(news.Id))
+                    if (await NewsExists(news.Id) == false)
                     {
                         return NotFound();
-                    }
-                    else
-                    {
-                        throw;
                     }
                 }
                 return RedirectToAction(nameof(Index));
@@ -202,8 +201,7 @@ namespace WoWJunkyard.Controllers
                 return NotFound();
             }
 
-            var news = await _context.News
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var news = await _news.GetNews(id);
             if (news == null)
             {
                 return NotFound();
@@ -218,15 +216,13 @@ namespace WoWJunkyard.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var news = await _context.News.FindAsync(id);
-            _context.News.Remove(news);
-            await _context.SaveChangesAsync();
+            await _news.DeleteNews(id);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool NewsExists(int id)
+        private async Task<bool> NewsExists(int id)
         {
-            return _context.News.Any(e => e.Id == id);
+            return await _news.FindNews(id);
         }
     }
 }

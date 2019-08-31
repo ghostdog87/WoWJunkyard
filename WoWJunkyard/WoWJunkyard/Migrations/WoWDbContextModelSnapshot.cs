@@ -112,25 +112,6 @@ namespace WoWJunkyard.Migrations
                     b.ToTable("UserTokens");
                 });
 
-            modelBuilder.Entity("WoWJunkyard.Data.Models.Dungeon", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AccomplishedLevel");
-
-                    b.Property<int?>("CharacterId");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CharacterId");
-
-                    b.ToTable("Dungeons");
-                });
-
             modelBuilder.Entity("WoWJunkyard.Models.Character.Character", b =>
                 {
                     b.Property<int>("Id")
@@ -162,6 +143,33 @@ namespace WoWJunkyard.Migrations
                     b.HasIndex("WoWAccountId");
 
                     b.ToTable("Characters");
+                });
+
+            modelBuilder.Entity("WoWJunkyard.Models.Character.Dungeon", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CharacterId");
+
+                    b.Property<long>("CompletedTimestamp");
+
+                    b.Property<long>("DungeonId");
+
+                    b.Property<string>("DungeonName");
+
+                    b.Property<long>("Duration");
+
+                    b.Property<bool>("IsCompletedWithinTime");
+
+                    b.Property<long>("KeystoneLevel");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CharacterId");
+
+                    b.ToTable("Dungeons");
                 });
 
             modelBuilder.Entity("WoWJunkyard.Models.Character.EquippedItem", b =>
@@ -227,14 +235,16 @@ namespace WoWJunkyard.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(200000);
 
                     b.Property<string>("Image");
 
                     b.Property<DateTime>("PostedOn");
 
                     b.Property<string>("Title")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(200);
 
                     b.HasKey("Id");
 
@@ -301,18 +311,19 @@ namespace WoWJunkyard.Migrations
                     b.ToTable("WoWUser");
                 });
 
-            modelBuilder.Entity("WoWJunkyard.Data.Models.Dungeon", b =>
-                {
-                    b.HasOne("WoWJunkyard.Models.Character.Character")
-                        .WithMany("Dungeons")
-                        .HasForeignKey("CharacterId");
-                });
-
             modelBuilder.Entity("WoWJunkyard.Models.Character.Character", b =>
                 {
                     b.HasOne("WoWJunkyard.Models.User.WoWAccount")
                         .WithMany("Characters")
                         .HasForeignKey("WoWAccountId");
+                });
+
+            modelBuilder.Entity("WoWJunkyard.Models.Character.Dungeon", b =>
+                {
+                    b.HasOne("WoWJunkyard.Models.Character.Character", "Character")
+                        .WithMany("Dungeons")
+                        .HasForeignKey("CharacterId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("WoWJunkyard.Models.Character.EquippedItem", b =>

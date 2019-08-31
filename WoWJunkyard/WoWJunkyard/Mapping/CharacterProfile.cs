@@ -7,6 +7,7 @@ using WoWJunkyard.Models.News;
 using WoWJunkyard.Views.Models;
 using WoWJunkyard.Views.Models.Enums;
 using WoWJunkyard.Views.ViewModels;
+using Dungeon = WoWJunkyard.Models.Character.Dungeon;
 
 namespace WoWJunkyard.Mapping
 {
@@ -24,6 +25,9 @@ namespace WoWJunkyard.Mapping
                 .ForMember(dest => dest.ItemIdNumber, m => m.MapFrom(val => val.Id))
                 .ForMember(dest => dest.Id,x=>x.Ignore());
             CreateMap<InventoryTypeInputModel, InventoryType>();
+            CreateMap<BestRun, Dungeon>()
+                .ForMember(dest => dest.DungeonName,m => m.MapFrom(val => val.Dungeon.Name))
+                .ForMember(dest => dest.DungeonId, m => m.MapFrom(val => val.Dungeon.Id));
 
             //CreateMap<ItemInfoInputModel, ItemInfo>()
             //    .ForMember(dest => dest.BonusLists, m => m.MapFrom(value => string.Join(':',value.Bonus)));

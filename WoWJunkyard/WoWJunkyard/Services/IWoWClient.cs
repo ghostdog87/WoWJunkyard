@@ -8,5 +8,7 @@ namespace WoWJunkyard.Services
         Task<HttpResponseMessage> GetCharacterAsync(string realm, string characterName);
 
         Task<HttpResponseMessage> GetCharacterItemsAsync(string realm, string characterName);
+
+        Task<HttpResponseMessage> GetCharacterMythicPlusAsync(string realm, string characterName);
     }
 }

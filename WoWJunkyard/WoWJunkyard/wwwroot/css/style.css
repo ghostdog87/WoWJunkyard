@@ -8,6 +8,133 @@
 /*---------------------------*/
 /* Template default CSS
 /*---------------------------*/
+@media (min-width: 1280px) {
+    .Chakram--textLarge .Chakram-text {
+        font-size: 2.488rem;
+    }
+} 
+
+@media (min-width: 720px) {
+    .Chakram--textLarge .Chakram-text {
+        font-size: 2.1148rem;
+    }
+} 
+
+.Chakram--textLarge .Chakram-text {
+    font-family: "Open Sans",Arial,Helvetica,sans-serif;
+    font-weight: 400;
+    font-size: 1.866rem;
+    line-height: 1.5em;
+    color: #fff;
+    text-shadow: 0 0 1px transparent, 0 1px 2px rgba(0,0,0,.8);
+}
+
+@media (min-width: 1280px) {
+    .Chakram-text {
+        font-size: 1.44rem;
+    }
+} 
+
+@media (min-width: 720px) {
+    .Chakram-text {
+        font-size: 1.224rem;
+    }
+} 
+
+.Chakram-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    font-family: "Open Sans",Arial,Helvetica,sans-serif;
+    font-weight: 400;
+    font-size: 1.08rem;
+    line-height: 1.5em;
+    color: #fff;
+    text-shadow: 0 0 1px transparent, 0 1px 2px rgba(0,0,0,.8);
+}
+.List--vertical > .List-item {
+    display: block;
+    height: auto;
+}
+
+.List > .List-item {
+    vertical-align: middle;
+}
+.List--left {
+    margin-right: auto;
+    text-align: left;
+}
+
+.List {
+    display: table;
+    position: relative;
+}
+.gutter-normal.gutter-all {
+    padding: 20px;
+}
+@media (min-width: 1280px) {
+    .Chakram--textLarge .Chakram-text {
+        font-size: 2.488rem;
+    }
+} 
+
+@media (min-width: 720px) {
+    .Chakram--textLarge .Chakram-text {
+        font-size: 2.1148rem;
+    }
+} 
+
+.Chakram--textLarge .Chakram-text {
+    font-family: "Open Sans",Arial,Helvetica,sans-serif;
+    font-weight: 400;
+    font-size: 1.866rem;
+    line-height: 1.5em;
+    color: #fff;
+    text-shadow: 0 0 1px transparent, 0 1px 2px rgba(0,0,0,.8);
+}
+.MythicKeystoneDungeon-level {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    margin-top: -50px;
+}
+
+.Chakram--small {
+    width: 100px;
+    height: 100px;
+}
+
+.Chakram {
+    position: relative;
+    background-image: url('https://localhost:44365/img/dungeons/Chakram.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 128px;
+    height: 128px;
+}
+.MythicKeystoneDungeonRun--EPIC {
+    border-color: #c600ff;
+    height: 338px;
+}
+
+.MythicKeystoneDungeonRun {
+    border: solid 1px #3f4f56;
+}
+.MythicKeystoneDungeon-header {
+    padding-top: 33%;
+    background-position: top;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    position: relative;
+    border-bottom: solid 1px #3f4f56;
+}
+.news-text h2, .news-text h1 {
+    color: #fff !important;
+}
 .character-title {
     font-weight: bold;
     font-size: 2em;

@@ -57,8 +57,9 @@ namespace WoWJunkyard
 
             services.AddTransient<IEmailSender, EmailSender>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
-            services.AddSingleton<IWoWToken, WoWToken>();
-            services.AddScoped<IWoWClient, WoWClient>();
+            services.AddTransient<IWoWToken, WoWToken>();
+            services.AddTransient<IWoWClient, WoWClient>();
+            services.AddTransient<INewsService, NewsService>();
             services.AddAutoMapper(typeof(Startup));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

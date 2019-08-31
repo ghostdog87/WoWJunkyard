@@ -144,5 +144,35 @@ namespace WoWJunkyard.Controllers
                 return View(character);
             }
         }
+
+        public async Task<ActionResult> MythicPlus(int id, string realm, string characterName)
+        {
+            var characterApi = await _wowClient.GetCharacterMythicPlusAsync(realm, characterName);
+
+            using (HttpContent content = characterApi.Content)
+            {
+
+                string jsonResult = await content.ReadAsStringAsync();
+                var inputModel = MythicPlusInputModel.FromJson(jsonResult);
+
+                var characterDungeons = _mapper.Map<List<Dungeon>>(inputModel.BestRuns);
+
+                var character = await _context.Characters
+                    .Where(x => x.Id == id)
+                    .Include(x => x.Dungeons)
+                    .FirstOrDefaultAsync();
+
+                if (characterDungeons != null)
+                {
+                    character.Dungeons.Clear();
+
+                    character.Dungeons.AddRange(characterDungeons);
+
+                    await _context.SaveChangesAsync();
+                }
+
+                return View(character);
+            }
+        }
     }
 }

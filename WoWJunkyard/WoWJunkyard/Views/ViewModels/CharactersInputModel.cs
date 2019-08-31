@@ -121,7 +121,7 @@ namespace WoWJunkyard.Views.Models
 
     }
 
-    
+
     public partial class ItemInfoInputModel
     {
         [JsonIgnore]

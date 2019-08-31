@@ -1,23 +1,60 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using WoWJunkyard.Data.Models
 @using WoWJunkyard.Models.User
+@using WoWJunkyard.Services
 @inject SignInManager<WoWUser> SignInManager
+@inject INewsService NewsService
 
 @{
     ViewData["Title"] = "Home Page";
+    var news = await NewsService.GetAllNews();
 }
 
-@if (!this.SignInManager.IsSignedIn(User))
-{
-    <div class="text-center" style="margin-top: 20%">
-        <span class="display-4" style="color: #ffcf16">Welcome to Junkyard</span>
-    </div>
-}
-@if (User.IsInRole("Admin"))
-{
-    <h1 class="text-center">Hello, @SignInManager.UserManager.GetUserName(User)! </h1>
 
-    <div class="text-center" style="margin-top: 20%">
-        <span class="display-4" style="color: #ffcf16">Welcome to Junkyard</span>
+<div class="text-center">
+    <span class="display-4" style="color: #ffcf16">Welcome to Junkyard</span>
+</div>
+
+@if ( news != null)
+{
+var counter1 = 0;
+var counter2 = 0;
+
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        @foreach (var item in news)
+        {
+            var active1 = counter1 == 0 ? "active" : "";
+            <li data-target="#carouselExampleIndicators" data-slide-to="@counter1" class="@active1"></li>
+            counter1++;
+            @if (counter1 == 5){ break;}
+        }
+    </ol>
+    <div class="carousel-inner">
+        @foreach (var item in news)
+        {
+            var active2 = counter2 == 0 ? "active" : "";
+
+            <div class="carousel-item @active2">
+                <a asp-controller="News" asp-action="Details" asp-route-id="@item.Id">
+                    <img class="d-block w-100" src="@item.Image" alt="News">
+                    <div class="carousel-caption d-none d-md-block">
+                        <span class="news-title">@item.Title</span>
+                    </div>
+                </a>
+
+            </div>
+            counter2++;
+            @if (counter2 == 5) { break; }
+        }
     </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
 }
