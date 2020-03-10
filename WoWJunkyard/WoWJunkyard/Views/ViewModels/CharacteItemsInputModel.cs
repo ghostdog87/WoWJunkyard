@@ -484,10 +484,10 @@
         {
             if (reader.TokenType == JsonToken.Null) return null;
             var value = serializer.Deserialize<string>(reader);
-            if (value == "ON_ACQUIRE")
-            {
+            //if (value == "ON_ACQUIRE")
+            //{
                 return BindingType.OnAcquire;
-            }
+            //}
             throw new Exception("Cannot unmarshal type BindingType");
         }
 
@@ -499,11 +499,11 @@
                 return;
             }
             var value = (BindingType)untypedValue;
-            if (value == BindingType.OnAcquire)
-            {
+            //if (value == BindingType.OnAcquire)
+            //{
                 serializer.Serialize(writer, "ON_ACQUIRE");
                 return;
-            }
+            //}
             throw new Exception("Cannot marshal type BindingType");
         }
 
@@ -550,6 +550,8 @@
                 case "EPIC":
                     return QualityType.Epic;
                 case "RARE":
+                    return QualityType.Rare;
+                default:
                     return QualityType.Rare;
             }
             throw new Exception("Cannot unmarshal type QualityType");

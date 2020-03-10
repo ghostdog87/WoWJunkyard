@@ -6,10 +6,10 @@ Course project for Softuni - ASP.NET Core 2019
 ## Description
 
 This is Web page that gives information about characters in World of Warcraft.
-It provide the following  information: character items, character progress in mythic dungeons,
+It provides the following  information: character items, character progress in mythic dungeons,
 detailed information about characters. 
-Shows details for each character item.
-Search bar to find characters added by other users or admin.
+Shows the details for each character item.
+Search bar to find characters.
 
 ## Profiles
 ### Admin:
@@ -31,7 +31,7 @@ Search bar to find characters added by other users or admin.
 
 ### Character
   - Id (Integer)
-  - Level (integer)
+  - Level (Integer)
   - Items (List of Items)
   - Price (Decimal)
   - Dungeons (List of accomplished mythic dungeons)
